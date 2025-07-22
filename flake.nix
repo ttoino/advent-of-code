@@ -162,6 +162,11 @@
           runtimeInputs = [ pkgs.deno getInput ];
           text = "getInput 19 | deno run ${./day19.ts}";
         };
+        day25 = pkgs.writeShellApplication {
+          name = "day25";
+          runtimeInputs = [ pkgs.zig getInput ];
+          text = "getInput 25 | zig run ${./day25.zig}";
+        };
       };
     };
 }
