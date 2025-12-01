@@ -27,8 +27,6 @@ add_dirs(Graph, Heap, Distance, Row-Col-Dir, [RowD-ColD-DirD | Dirs], FinalHeap)
     add_dirs(Graph, NewHeap, Distance, Row-Col-Dir, Dirs, FinalHeap).
 
 dijkstra(Heap, Visited, Graph, Distance) :-
-    % heap_size(Heap, Size),
-    % write(Size), nl,
     get_from_heap(Heap, CurrentDistance, Row-Col-Dir, NewHeap),
     (
         ord_memberchk(Row-Col, Visited) -> dijkstra(NewHeap, Visited, Graph, Distance);

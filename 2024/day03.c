@@ -1,6 +1,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 int part1(char *input) {
     char *i = input;
