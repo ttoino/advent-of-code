@@ -17,27 +17,7 @@
       getInput = pkgs.writeShellApplication {
         name = "getInput";
         runtimeInputs = [ pkgs.curl ];
-        text = ''
-          CACHE_DIR="''${XDG_CACHE_HOME:-$HOME/.cache}/aoc2024"
-          mkdir -p "$CACHE_DIR"
-          SESSION_FILE="$CACHE_DIR/session"
-          OUTPUT_FILE="$CACHE_DIR/day$1"
-
-          while [ ! -f "$OUTPUT_FILE" ]; do
-            if [ ! -f "$SESSION_FILE" ]; then
-              echo -n "Please enter your session cookie: " >&2
-              read -r SESSION
-              echo "$SESSION" > "$SESSION_FILE"
-            fi
-
-            if ! curl "https://adventofcode.com/2024/day/$1/input" -sf -H "Cookie: session=$(cat "$SESSION_FILE")" -o "$OUTPUT_FILE"; then
-              echo "Invalid session cookie" >&2
-              rm -f "$SESSION_FILE" "$OUTPUT_FILE"
-            fi
-          done
-
-          cat "$OUTPUT_FILE"
-        '';
+        text = builtins.readFile ./get-input.sh;
       };
     in
     {
@@ -48,7 +28,7 @@
             getInput
             (pkgs.dyalog.override { acceptLicense = true; })
           ];
-          text = "getInput 1 | dyalog -script ${./2024/day01.apl} 2> /dev/null";
+          text = "getInput 2024 1 | dyalog -script ${./2024/day01.apl} 2> /dev/null";
         };
         day02 = pkgs.writeShellApplication {
           name = "day02";
@@ -56,7 +36,7 @@
             getInput
             pkgs.bash
           ];
-          text = "getInput 2 | bash ${./2024/day02.bash}";
+          text = "getInput 2024 2 | bash ${./2024/day02.bash}";
         };
         day03 = pkgs.writeShellApplication {
           name = "day03";
@@ -64,7 +44,7 @@
             getInput
             (pkgs.writeCBin "day03Bin" (builtins.readFile ./2024/day03.c))
           ];
-          text = "getInput 3 | day03Bin";
+          text = "getInput 2024 3 | day03Bin";
         };
         day04 = pkgs.writeShellApplication {
           name = "day04";
@@ -72,7 +52,7 @@
             getInput
             pkgs.dart
           ];
-          text = "getInput 4 | dart run ${./2024/day04.dart}";
+          text = "getInput 2024 4 | dart run ${./2024/day04.dart}";
         };
         day05 = pkgs.writeShellApplication {
           name = "day05";
@@ -80,7 +60,7 @@
             getInput
             pkgs.elixir
           ];
-          text = "getInput 5 | elixir ${./2024/day05.exs}";
+          text = "getInput 2024 5 | elixir ${./2024/day05.exs}";
         };
         day06 = pkgs.writeShellApplication {
           name = "day06";
@@ -97,7 +77,7 @@
             )
             getInput
           ];
-          text = "getInput 6 | day06Bin";
+          text = "getInput 2024 6 | day06Bin";
         };
         day07 = pkgs.writeShellApplication {
           name = "day07";
@@ -105,7 +85,7 @@
             getInput
             pkgs.go
           ];
-          text = "getInput 7 | go run ${./2024/day07.go}";
+          text = "getInput 2024 7 | go run ${./2024/day07.go}";
         };
         day08 = pkgs.writeShellApplication {
           name = "day08";
@@ -113,7 +93,7 @@
             pkgs.ghc
             getInput
           ];
-          text = "getInput 8 | runghc ${./2024/day08.hs}";
+          text = "getInput 2024 8 | runghc ${./2024/day08.hs}";
         };
         day09 = pkgs.writeShellApplication {
           name = "day09";
@@ -121,7 +101,7 @@
             pkgs.idris2
             getInput
           ];
-          text = "getInput 9 | idris2 -x elba --source-dir / ${./2024/day09.idr}";
+          text = "getInput 2024 9 | idris2 -x elba --source-dir / ${./2024/day09.idr}";
         };
         day10 = pkgs.writeShellApplication {
           name = "day10";
@@ -129,7 +109,7 @@
             pkgs.julia
             getInput
           ];
-          text = "getInput 10 | julia ${./2024/day10.jl}";
+          text = "getInput 2024 10 | julia ${./2024/day10.jl}";
         };
         day11 = pkgs.writeShellApplication {
           name = "day11";
@@ -137,7 +117,7 @@
             pkgs.kotlin
             getInput
           ];
-          text = "getInput 11 | kotlinc -script ${./2024/day11.kts}";
+          text = "getInput 2024 11 | kotlinc -script ${./2024/day11.kts}";
         };
         day12 = pkgs.writeShellApplication {
           name = "day12";
@@ -145,7 +125,7 @@
             pkgs.lua
             getInput
           ];
-          text = "getInput 12 | lua ${./2024/day12.lua}";
+          text = "getInput 2024 12 | lua ${./2024/day12.lua}";
         };
         day13 = pkgs.writeShellApplication {
           name = "day13";
@@ -153,12 +133,12 @@
             pkgs.maxima
             getInput
           ];
-          text = "getInput 13 | maxima --very-quiet --init-mac=${./2024/day13.mac} --batch-string='main()$'";
+          text = "getInput 2024 13 | maxima --very-quiet --init-mac=${./2024/day13.mac} --batch-string='main()$'";
         };
         day14 = pkgs.writeShellApplication {
           name = "day14";
           runtimeInputs = [ getInput ];
-          text = "nix eval --show-trace --raw --file ${./2024/day14.nix} --apply \"f: f ''$(getInput 14)''\"";
+          text = "nix eval --show-trace --raw --file ${./2024/day14.nix} --apply \"f: f ''$(getInput 2024 14)''\"";
         };
         day15 = pkgs.writeShellApplication {
           name = "day15";
@@ -166,7 +146,7 @@
             pkgs.ocaml
             getInput
           ];
-          text = "getInput 15 | ocaml ${./2024/day15.ml}";
+          text = "getInput 2024 15 | ocaml ${./2024/day15.ml}";
         };
         day16 = pkgs.writeShellApplication {
           name = "day16";
@@ -174,7 +154,7 @@
             pkgs.swi-prolog
             getInput
           ];
-          text = "getInput 16 | swipl -g main ${./2024/day16.pl}";
+          text = "getInput 2024 16 | swipl -g main ${./2024/day16.pl}";
         };
         day17 = pkgs.writeShellApplication {
           name = "day17";
@@ -191,7 +171,7 @@
             )
             getInput
           ];
-          text = "getInput 17 | day17Bin";
+          text = "getInput 2024 17 | day17Bin";
         };
         day18 = pkgs.writeShellApplication {
           name = "day18";
@@ -200,7 +180,7 @@
             getInput
           ];
           text = ''
-            getInput 18 | scala-cli run ${./2024/day18.scala}
+            getInput 2024 18 | scala-cli run ${./2024/day18.scala}
           '';
         };
         day19 = pkgs.writeShellApplication {
@@ -209,7 +189,7 @@
             pkgs.deno
             getInput
           ];
-          text = "getInput 19 | deno run ${./2024/day19.ts}";
+          text = "getInput 2024 19 | deno run ${./2024/day19.ts}";
         };
         day20 = pkgs.writeShellApplication {
           name = "day20";
@@ -217,7 +197,7 @@
             pkgs.unison-ucm
             getInput
           ];
-          text = "getInput 20 | ucm run.file ${./2024/day20.u} main";
+          text = "getInput 2024 20 | ucm run.file ${./2024/day20.u} main";
         };
         day21 = pkgs.writeShellApplication {
           name = "day21";
@@ -225,7 +205,7 @@
             pkgs.vala
             getInput
           ];
-          text = "getInput 21 | vala ${./2024/day21.vala}";
+          text = "getInput 2024 21 | vala ${./2024/day21.vala}";
         };
         day22 = pkgs.writeShellApplication {
           name = "day22";
@@ -248,7 +228,7 @@
             pkgs.zig
             getInput
           ];
-          text = "getInput 25 | zig run ${./2024/day25.zig}";
+          text = "getInput 2024 25 | zig run ${./2024/day25.zig}";
         };
       };
     };
