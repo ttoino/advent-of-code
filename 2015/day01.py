@@ -1,10 +1,18 @@
-import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
-import re
-from collections import Counter
+def part1(inp: str):
+    return inp.count("(") - inp.count(")")
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    inp = inf.readline()
-    outf.write(str(inp.count("(") - inp.count(")")))
+
+def part2(inp: str):
+    floor = 0
+    for i, c in enumerate(inp):
+        floor += c == "("
+        floor -= c == ")"
+        if floor == -1:
+            return i + 1
+
+
+if __name__ == "__main__":
+    inp = input()
+
+    print(f"Part 1: {part1(inp)}")
+    print(f"Part 2: {part2(inp)}")

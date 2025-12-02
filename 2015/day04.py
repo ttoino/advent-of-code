@@ -1,16 +1,15 @@
 import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
-import re
-from collections import Counter
 from hashlib import md5
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    inp = inf.readline().strip()
 
+def solve(inp: str, prefix: str):
     for i in it.count():
-        if md5(bytes(f"{inp}{i}",
-                     encoding="ascii")).hexdigest().startswith("00000"):
-            outf.write(str(i))
-            break
+        if md5(bytes(f"{inp}{i}", encoding="ascii")).hexdigest().startswith(prefix):
+            return i
+
+
+if __name__ == "__main__":
+    inp = input().strip()
+
+    print(f"Part 1: {solve(inp, '00000')}")
+    print(f"Part 2: {solve(inp, '000000')}")

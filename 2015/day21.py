@@ -1,10 +1,7 @@
 import itertools as it
 from math import ceil
-import more_itertools as mit
 import functools as ft
-import operator as op
-import re
-from collections import Counter
+import sys
 
 weapons = [(8, 4, 0), (10, 5, 0), (25, 6, 0), (40, 7, 0), (74, 8, 0)]
 
@@ -27,17 +24,26 @@ rings = [
 ]
 
 
-def generate_loadouts():
+def generate_loadouts(part: int):
     return sorted(
-        (ft.reduce(lambda x, y:
-                   (x[0] + y[0], x[1] + y[1], x[2] + y[2]), [i, j, *k],
-                   (0, 0, 0)) for i in weapons for j in armor
-         for k in it.chain([[]], it.combinations(rings, 1),
-                           it.combinations(rings, 2))),
-        key=lambda x: x[0])
+        (
+            ft.reduce(
+                lambda x, y: (x[0] + y[0], x[1] + y[1], x[2] + y[2]),
+                [i, j, *k],
+                (0, 0, 0),
+            )
+            for i in weapons
+            for j in armor
+            for k in it.chain(
+                [[]], it.combinations(rings, 1), it.combinations(rings, 2)
+            )
+        ),
+        key=lambda x: x[0],
+        reverse=part == 2,
+    )
 
 
-def wins(loadout, boss):
+def wins(loadout: tuple[int, int, int], boss: tuple[int, int, int]):
     hp = 100
     price, damage, armor = loadout
     boss_hp, boss_damage, boss_armor = boss
@@ -48,8 +54,14 @@ def wins(loadout, boss):
     return turns_to_die > turns_to_kill - 1
 
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    boss = tuple(
-        int(i.strip().split(": ")[1]) for i in inf)  # hp, damage, armor
+def solve(boss: tuple[int, int, int], part: int):
+    return next(i[0] for i in generate_loadouts(part) if not wins(i, boss))
 
-    outf.write(str(next(i[0] for i in generate_loadouts() if wins(i, boss))))
+
+if __name__ == "__main__":
+    boss: tuple[int, int, int] = tuple(
+        int(i.strip().split(": ")[1]) for i in sys.stdin.readlines()
+    )
+
+    print(f"Part 1: {solve(boss, 1)}")
+    print(f"Part 2: {solve(boss, 2)}")

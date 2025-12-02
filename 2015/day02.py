@@ -1,17 +1,24 @@
-import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
-import re
-from collections import Counter
+import sys
 
-with open("input") as inf, open("part1.out", "w+") as outf:
+
+def part1(inp: list[tuple[int, int, int]]):
     s = 0
-
-    for i in inf:
-        i = sorted(map(int, i.split("x")))
-        l, w, h = i
-
+    for l, w, h in inp:
         s += 3 * l * w + 2 * w * h + 2 * h * l
+    return s
 
-    outf.write(str(s))
+
+def part2(inp: list[tuple[int, int, int]]):
+    s = 0
+    for l, w, h in inp:
+        s += l + l + w + w + l * w * h
+    return s
+
+
+if __name__ == "__main__":
+    inp: list[tuple[int, int, int]] = [
+        tuple(sorted(map(int, i.split("x")))) for i in sys.stdin.readlines()
+    ]
+
+    print(f"Part 1: {part1(inp)}")
+    print(f"Part 2: {part2(inp)}")

@@ -1,16 +1,10 @@
-from curses.ascii import isalpha
-import itertools as it
-import more_itertools as mit
 import functools as ft
-import operator as op
-import re
-from collections import Counter
+import sys
 
 d = {}
 
 
-class Literal():
-
+class Literal:
     def __init__(self, v: str) -> None:
         self.v = int(v)
 
@@ -19,8 +13,7 @@ class Literal():
         return self.v
 
 
-class Passthrough():
-
+class Passthrough:
     def __init__(self, v: str) -> None:
         self.v = v
 
@@ -29,8 +22,7 @@ class Passthrough():
         return d[self.v]()
 
 
-class Not():
-
+class Not:
     def __init__(self, v: str) -> None:
         self.v = v.split()[1]
 
@@ -39,8 +31,7 @@ class Not():
         return ~d[self.v]()
 
 
-class And():
-
+class And:
     def __init__(self, v: str) -> None:
         self.a, _, self.b = v.split()
 
@@ -54,8 +45,7 @@ class And():
         return a & d[self.b]()
 
 
-class Or():
-
+class Or:
     def __init__(self, v: str) -> None:
         self.a, _, self.b = v.split()
 
@@ -64,8 +54,7 @@ class Or():
         return d[self.a]() | d[self.b]()
 
 
-class Lshift():
-
+class Lshift:
     def __init__(self, v: str) -> None:
         self.a, _, self.b = v.split()
 
@@ -74,8 +63,7 @@ class Lshift():
         return d[self.a]() << int(self.b)
 
 
-class Rshift():
-
+class Rshift:
     def __init__(self, v: str) -> None:
         self.a, _, self.b = v.split()
 
@@ -84,11 +72,10 @@ class Rshift():
         return d[self.a]() >> int(self.b)
 
 
-with open("input") as inf, open("part1.out", "w+") as outf:
+def solve(inp: list[tuple[str, str]], a=None):
+    d.clear()
 
-    for i in inf:
-        i, o = i.strip().split(" -> ")
-
+    for i, o in inp:
         if i.isdigit():
             d[o] = Literal(i)
         elif "NOT " in i:
@@ -104,4 +91,19 @@ with open("input") as inf, open("part1.out", "w+") as outf:
         else:
             d[o] = Passthrough(i)
 
-    outf.write(str(d["a"]()))
+    if a:
+        d["b"] = Literal(a)
+
+    return d["a"]()
+
+
+if __name__ == "__main__":
+    inp: list[tuple[str, str]] = [
+        tuple(i.strip().split(" -> ")) for i in sys.stdin.readlines()
+    ]
+
+    part1 = solve(inp)
+    part2 = solve(inp, part1)
+
+    print(f"Part 1: {part1}")
+    print(f"Part 2: {part2}")

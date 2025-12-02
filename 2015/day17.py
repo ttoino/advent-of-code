@@ -1,22 +1,25 @@
-import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
-import re
-from collections import Counter
+import sys
 
 
-def brute_force(capacities, ub) -> int:
+def brute_force(capacities, ub, amount=0) -> list[int]:
     if ub == 0:
-        return 1
+        return [amount]
 
     if ub < 0 or len(capacities) == 0:
-        return 0
+        return []
 
-    return brute_force(capacities[1:], ub - capacities[0]) + brute_force(
-        capacities[1:], ub)
+    return brute_force(capacities[1:], ub - capacities[0], amount + 1) + brute_force(
+        capacities[1:], ub, amount
+    )
 
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    capacities = [int(i) for i in inf]
-    outf.write(str(brute_force(capacities, 150)))
+if __name__ == "__main__":
+    capacities = [int(i) for i in sys.stdin.readlines()]
+
+    r = brute_force(capacities, 150)
+
+    part1 = len(r)
+    part2 = r.count(min(r))
+
+    print(f"Part 1: {part1}")
+    print(f"Part 2: {part2}")

@@ -1,15 +1,11 @@
-import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
 import re
-from collections import Counter
 
-with open("input") as inf, open("part1.out", "w+") as outf:
+
+def solve(inp: str, part: int):
     pattern = re.compile(r"(\d)\1*")
-    n = inf.readline()
+    n = inp
 
-    for _ in range(40):
+    for _ in range(40 if part == 1 else 50):
         nn = ""
 
         while m := pattern.match(n):
@@ -18,4 +14,11 @@ with open("input") as inf, open("part1.out", "w+") as outf:
 
         n = nn
 
-    outf.write(str(len(n)))
+    return len(n)
+
+
+if __name__ == "__main__":
+    inp = input()
+
+    print(f"Part 1: {solve(inp, 1)}")
+    print(f"Part 2: {solve(inp, 2)}")

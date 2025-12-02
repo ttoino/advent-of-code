@@ -1,21 +1,25 @@
-import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
-import re
-from collections import Counter
-from json import load
+import json
+import sys
 
-def visit(o) -> int:
+
+def visit(o, part: int):
     match o:
         case int(o):
             return o
         case dict(o):
-            return sum(map(visit, o.values()))
+            return (
+                0
+                if part == 2 and "red" in o.values()
+                else sum(visit(x, part) for x in o.values())
+            )
         case list(o):
-            return sum(map(visit, o))
+            return sum(visit(x, part) for x in o)
         case _:
             return 0
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    outf.write(str(visit(load(inf))))
+
+if __name__ == "__main__":
+    inp = json.load(sys.stdin)
+
+    print(f"Part 1: {visit(inp, 1)}")
+    print(f"Part 2: {visit(inp, 2)}")

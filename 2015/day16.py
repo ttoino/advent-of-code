@@ -1,35 +1,41 @@
-import itertools as it
+import sys
 import more_itertools as mit
-import functools as ft
 import operator as op
-import re
-from collections import Counter
 
-with open("input") as inf, open("part1.out", "w+") as outf:
+
+def solve(sues: dict[int, dict[str, int]], part: int):
     target_sue = {
-        "children": 3,
-        "cats": 7,
-        "samoyeds": 2,
-        "pomeranians": 3,
-        "akitas": 0,
-        "vizslas": 0,
-        "goldfish": 5,
-        "trees": 3,
-        "cars": 2,
-        "perfumes": 1
+        "children": (3, op.ne),
+        "cats": (7, op.le),
+        "samoyeds": (2, op.ne),
+        "pomeranians": (3, op.ge),
+        "akitas": (0, op.ne),
+        "vizslas": (0, op.ne),
+        "goldfish": (5, op.ge),
+        "trees": (3, op.le),
+        "cars": (2, op.ne),
+        "perfumes": (1, op.ne),
     }
 
+    for i, sue in list(sues.items()):
+        for k, (v, o) in target_sue.items():
+            if k in sue and (
+                (part == 1 and sue[k] != v) or (part == 2 and o(sue[k], v))
+            ):
+                del sues[i]
+                break
+
+    return next(iter(sues))
+
+
+if __name__ == "__main__":
     sues = {
         int(i[1].removesuffix(":")): {
             k.removesuffix(":"): int(v.removesuffix(","))
             for k, v in mit.chunked(i[2:], 2)
-        } for i in map(lambda i: i.split(), inf)
+        }
+        for i in (i.split() for i in sys.stdin.readlines())
     }
 
-    for i, sue in list(sues.items()):
-        for k, v in target_sue.items():
-            if k in sue and sue[k] != v:
-                del sues[i]
-                break
-
-    outf.write(str(next(iter(sues))))
+    print(f"Part 1: {solve(sues.copy(), 1)}")
+    print(f"Part 2: {solve(sues.copy(), 2)}")

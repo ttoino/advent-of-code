@@ -1,14 +1,9 @@
-import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
+import sys
 import re
-from collections import Counter
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    instructions = [re.split(r",? ", i.strip()) for i in inf]
 
-    registers = { "a": 0, "b": 0 }
+def solve(instructions: list[list[str]], part: int):
+    registers = {"a": part - 1, "b": 0}
     ip = 0
 
     while 0 <= ip < len(instructions):
@@ -32,4 +27,11 @@ with open("input") as inf, open("part1.out", "w+") as outf:
                     continue
         ip += 1
 
-    outf.write(str(registers["b"]))
+    return registers["b"]
+
+
+if __name__ == "__main__":
+    instructions = [re.split(r",? ", i.strip()) for i in sys.stdin.readlines()]
+
+    print(f"Part 1: {solve(instructions, 1)}")
+    print(f"Part 1: {solve(instructions, 2)}")
