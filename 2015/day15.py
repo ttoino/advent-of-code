@@ -59,3 +59,6 @@ if __name__ == "__main__":
         )
         for i in (i.split() for i in sys.stdin.readlines())
     ]
+
+    print(f"Part 1: {part1(ingredients)}")
+    print(f"Part 2: {part2(ingredients)}")

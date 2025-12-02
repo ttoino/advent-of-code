@@ -141,7 +141,8 @@ def simulate(
                 shield,
                 poison,
                 recharge,
-            )
+            ),
+            part,
         )
         for spell in spells
     )
@@ -149,7 +150,7 @@ def simulate(
 
 def solve(boss_hp: int, boss_damage: int, hp: int, mana: int, part: int):
     return min(
-        simulate(*spell(0, boss_hp, boss_damage, hp - part + 1, mana, 0, 0, 0))
+        simulate(*spell(0, boss_hp, boss_damage, hp - part + 1, mana, 0, 0, 0), part)
         for spell in spells
     )
 

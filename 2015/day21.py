@@ -55,7 +55,11 @@ def wins(loadout: tuple[int, int, int], boss: tuple[int, int, int]):
 
 
 def solve(boss: tuple[int, int, int], part: int):
-    return next(i[0] for i in generate_loadouts(part) if not wins(i, boss))
+    return next(
+        i[0]
+        for i in generate_loadouts(part)
+        if part == 1 and wins(i, boss) or part == 2 and not wins(i, boss)
+    )
 
 
 if __name__ == "__main__":

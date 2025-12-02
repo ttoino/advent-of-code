@@ -40,3 +40,6 @@ if __name__ == "__main__":
     replacements, molecule = "".join(sys.stdin.readlines()).split("\n\n")
     replacements = [s.split(" => ") for s in replacements.strip().splitlines()]
     molecule = molecule.strip()
+
+    print(f"Part 1: {part1(replacements, molecule)}")
+    print(f"Part 2: {part2(molecule)}")

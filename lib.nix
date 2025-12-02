@@ -150,7 +150,7 @@ rec {
     python =
       { source, ... }:
       {
-        inputs = [ pkgs.python3 ];
+        inputs = [ (pkgs.python3.withPackages (pp: [ pp.more-itertools ])) ];
         text = "python3 ${source + ".py"}";
       };
     rust = compiledLanguage (
