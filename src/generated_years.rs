@@ -8,6 +8,8 @@ pub mod _2025 {
     pub mod day01;
     #[path = "../../2025/day02.rs"]
     pub mod day02;
+    #[path = "../../2025/day03.rs"]
+    pub mod day03;
 }
 
 pub mod _2015 {
