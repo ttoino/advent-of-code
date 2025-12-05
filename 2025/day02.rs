@@ -1,6 +1,8 @@
 use std::io;
 
-fn get_input() -> Vec<(usize, usize)> {
+type Input = Vec<(usize, usize)>;
+
+fn get_input() -> Input {
     io::stdin()
         .lines()
         .next()
@@ -16,7 +18,7 @@ fn get_input() -> Vec<(usize, usize)> {
         .collect()
 }
 
-fn part1(input: &Vec<(usize, usize)>) -> usize {
+fn part1(input: &Input) -> usize {
     input.iter().fold(0, |acc, (start, end)| {
         let mut result = acc;
 
@@ -41,7 +43,7 @@ fn part1(input: &Vec<(usize, usize)>) -> usize {
     })
 }
 
-fn part2(input: &Vec<(usize, usize)>) -> usize {
+fn part2(input: &Input) -> usize {
     input.iter().fold(0, |acc, (start, end)| {
         let mut result = acc;
 

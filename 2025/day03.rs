@@ -1,6 +1,8 @@
 use std::io;
 
-fn get_input() -> Vec<Vec<usize>> {
+type Input = Vec<Vec<usize>>;
+
+fn get_input() -> Input {
     io::stdin()
         .lines()
         .map(|l| {
@@ -12,7 +14,7 @@ fn get_input() -> Vec<Vec<usize>> {
         .collect()
 }
 
-fn solve(input: &Vec<Vec<usize>>, digits: usize) -> usize {
+fn solve(input: &Input, digits: usize) -> usize {
     input
         .iter()
         .map(|bank| {

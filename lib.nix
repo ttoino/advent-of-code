@@ -158,7 +158,7 @@ rec {
       pkgs.runCommandCC bin { nativeBuildInputs = [ pkgs.rustc ]; } ''
         n="$out/bin/${bin}"
         mkdir -p $(dirname "$n")
-        rustc ${source + ".rs"} -o "$n"
+        rustc --edition 2024 ${source + ".rs"} -o "$n"
       ''
     );
     scala =

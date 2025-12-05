@@ -1,13 +1,16 @@
 use std::io;
 
-fn get_input() -> Vec<Vec<bool>> {
+type Input = Vec<Vec<bool>>;
+type Neighbors = Vec<Vec<usize>>;
+
+fn get_input() -> Input {
     io::stdin()
         .lines()
         .map(|l| l.unwrap().chars().map(|c| c == '@').collect())
         .collect()
 }
 
-fn neighbors(input: &Vec<Vec<bool>>) -> Vec<Vec<usize>> {
+fn neighbors(input: &Input) -> Neighbors {
     let mut result = vec![vec![0; input[0].len()]; input.len()];
 
     for i in 0..input.len() {
@@ -30,7 +33,7 @@ fn neighbors(input: &Vec<Vec<bool>>) -> Vec<Vec<usize>> {
     result
 }
 
-fn part1(input: &Vec<Vec<bool>>, neighbors: &Vec<Vec<usize>>) -> usize {
+fn part1(input: &Input, neighbors: &Neighbors) -> usize {
     let mut result = 0;
 
     for i in 0..input.len() {
@@ -46,7 +49,7 @@ fn part1(input: &Vec<Vec<bool>>, neighbors: &Vec<Vec<usize>>) -> usize {
     result
 }
 
-fn part2(mut input: Vec<Vec<bool>>, mut neighbors: Vec<Vec<usize>>) -> usize {
+fn part2(mut input: Input, mut neighbors: Neighbors) -> usize {
     let len = input.len();
     let row_len = input[0].len();
 

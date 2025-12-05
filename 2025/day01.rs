@@ -1,6 +1,8 @@
 use std::io;
 
-fn get_input() -> Vec<isize> {
+type Input = Vec<isize>;
+
+fn get_input() -> Input {
     io::stdin()
         .lines()
         .map(|l| {
@@ -11,7 +13,7 @@ fn get_input() -> Vec<isize> {
         .collect()
 }
 
-fn part1(input: &Vec<isize>) -> isize {
+fn part1(input: &Input) -> isize {
     input
         .iter()
         .scan(50, |total, i| {
@@ -21,7 +23,7 @@ fn part1(input: &Vec<isize>) -> isize {
         .sum()
 }
 
-fn part2(input: &Vec<isize>) -> isize {
+fn part2(input: &Input) -> isize {
     input
         .iter()
         .scan(50, |total, i| {
