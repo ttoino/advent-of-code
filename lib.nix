@@ -19,11 +19,22 @@ rec {
                   inherit day name year;
                   source = ./${year}/day${paddedDay};
                 };
+                script = pkgs.writeShellApplication {
+                  inherit name;
+                  runtimeInputs = [ getInput ] ++ lang.inputs;
+                  text = "get-input ${year} ${day} | ${lang.text}";
+                };
               in
-              pkgs.writeShellApplication {
-                inherit name;
-                runtimeInputs = [ getInput ] ++ lang.inputs;
-                text = "getInput ${year} ${day} | ${lang.text}";
+              script
+              // {
+                verify = pkgs.writeShellApplication {
+                  name = "${name}-verify";
+                  runtimeInputs = [
+                    getOutput
+                    script
+                  ];
+                  text = "diff <(get-output ${year} ${day}) <(${name} | rg --only-matching --pcre2 '(?<=Part \\d: |Solution: ).*')";
+                };
               };
           }
         ) days
@@ -31,10 +42,25 @@ rec {
     ) years;
   };
 
-  getInput = pkgs.writeShellApplication {
-    name = "getInput";
+  aocRequest = pkgs.writeShellApplication {
+    name = "aoc-request";
     runtimeInputs = [ pkgs.curl ];
-    text = builtins.readFile ./get-input.sh;
+    text = builtins.readFile ./scripts/aoc-request.sh;
+  };
+
+  getInput = pkgs.writeShellApplication {
+    name = "get-input";
+    runtimeInputs = [ aocRequest ];
+    text = builtins.readFile ./scripts/get-input.sh;
+  };
+
+  getOutput = pkgs.writeShellApplication {
+    name = "get-output";
+    runtimeInputs = [
+      aocRequest
+      pkgs.ripgrep
+    ];
+    text = builtins.readFile ./scripts/get-output.sh;
   };
 
   compiledLanguage =
@@ -133,7 +159,7 @@ rec {
       }:
       {
         inputs = [ pkgs.nix ];
-        text = "nix eval --show-trace --raw --file ${source + ".nix"} --apply \"f: f ''$(getInput ${year} ${day})''\"";
+        text = "nix eval --show-trace --raw --file ${source + ".nix"} --apply \"f: f ''$(get-input ${year} ${day})''\"";
       };
     ocaml =
       { source, ... }:
