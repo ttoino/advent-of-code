@@ -17,14 +17,14 @@ fn main() {
         }
 
         // push: pub mod y2024 { ... }
-        out.push_str(&format!("pub mod _{year} {{\n"));
+        out.push_str(&format!("#[path = \"../{year}\"]\n"));
+        out.push_str(&format!("pub mod y{year} {{\n"));
 
         // find all .rs files in the year folder
         for file in fs::read_dir(&path).unwrap() {
             let file = file.unwrap().path();
             if file.extension().and_then(|s| s.to_str()) == Some("rs") {
                 let name = file.file_stem().unwrap().to_string_lossy();
-                out.push_str(&format!("    #[path = \"../../{year}/{name}.rs\"]\n"));
                 out.push_str(&format!("    pub mod {name};\n"));
             }
         }

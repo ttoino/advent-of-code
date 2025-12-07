@@ -1,3 +1,4 @@
 .vscode
 build
+src/generated_*.rs
 target
