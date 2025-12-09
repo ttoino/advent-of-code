@@ -36,7 +36,7 @@ fn solve(input: &Input, digits: usize) -> usize {
         .sum()
 }
 
-fn main() {
+pub fn main() {
     let input = get_input();
 
     let result1 = solve(&input, 2);

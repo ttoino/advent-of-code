@@ -38,7 +38,7 @@ fn part2(input: &Input) -> isize {
         .sum()
 }
 
-fn main() {
+pub fn main() {
     let input = get_input();
 
     let result1 = part1(&input);

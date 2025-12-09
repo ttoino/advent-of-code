@@ -63,7 +63,7 @@ fn solve(mut input: Input) -> (usize, usize) {
     (splits, input.last().unwrap().iter().map(Cell::value).sum())
 }
 
-fn main() {
+pub fn main() {
     let input = get_input();
 
     let (result1, result2) = solve(input);

@@ -66,7 +66,7 @@ fn part2(input: &Input) -> usize {
     })
 }
 
-fn main() {
+pub fn main() {
     let input = get_input();
 
     let result1 = part1(&input);

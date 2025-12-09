@@ -134,7 +134,7 @@ fn part2(state: State, program: &Program) -> usize {
     result
 }
 
-fn main() {
+pub fn main() {
     let (state, program) = get_input();
 
     let result1 = part1(state.clone(), &program);

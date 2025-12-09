@@ -53,7 +53,7 @@ fn part2(ranges: &Ranges) -> usize {
     ranges.iter().map(|range| range.end() - range.start() + 1).sum()
 }
 
-fn main() {
+pub fn main() {
     let (ranges, ids) = get_input();
     let ranges = normalize_ranges(ranges);
 

@@ -17,8 +17,6 @@ fn neighbors(input: &Input) -> Neighbors {
         let row = &input[i];
 
         for j in 0..row.len() {
-            let element = row[j];
-
             let mut acc = 0;
             for ii in (0.max(i as isize - 1))..=((input.len() as isize - 1).min(i as isize + 1)) {
                 for jj in (0.max(j as isize - 1))..=((row.len() as isize - 1).min(j as isize + 1)) {
@@ -87,7 +85,7 @@ fn part2(mut input: Input, mut neighbors: Neighbors) -> usize {
     result
 }
 
-fn main() {
+pub fn main() {
     let input = get_input();
     let neighbors = neighbors(&input);
 
