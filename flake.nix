@@ -17,7 +17,14 @@
     in
     with lib;
     makeConfig {
-      "2025" = repeat 12 languages.rust;
+      "2025" =
+        with languages;
+        (repeat 9 rust)
+        ++ [
+          (minizinc rust)
+          rust
+          rust
+        ];
       "2024" = with languages; [
         apl
         bash

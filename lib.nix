@@ -1,5 +1,30 @@
 { pkgs, ... }:
 rec {
+  makeBin =
+    {
+      day,
+      language,
+      name,
+      source,
+      year,
+      ...
+    }:
+    let
+      lang = language {
+        inherit
+          day
+          name
+          source
+          year
+          ;
+      };
+    in
+    pkgs.writeShellApplication {
+      inherit name;
+      runtimeInputs = [ getInput ] ++ lang.inputs;
+      text = "get-input ${year} ${day} | ${lang.text}";
+    };
+
   makeConfig = years: {
     packages.${pkgs.stdenv.hostPlatform.system} = builtins.mapAttrs (
       year: days:
@@ -8,21 +33,21 @@ rec {
           d: language:
           let
             day = builtins.toString d;
-            paddedDay = if (builtins.stringLength day) <= 1 then "0" + day else day;
+            paddedDay = padDay day;
           in
           {
             name = "day${paddedDay}";
             value =
               let
                 name = "${year}day${paddedDay}";
-                lang = language {
-                  inherit day name year;
+                script = makeBin {
+                  inherit
+                    day
+                    language
+                    name
+                    year
+                    ;
                   source = ./${year}/day${paddedDay};
-                };
-                script = pkgs.writeShellApplication {
-                  inherit name;
-                  runtimeInputs = [ getInput ] ++ lang.inputs;
-                  text = "get-input ${year} ${day} | ${lang.text}";
                 };
               in
               script
@@ -150,6 +175,29 @@ rec {
         inputs = [ pkgs.maxima ];
         text = "maxima --very-quiet --init-mac=${source + ".mac"} --batch-string='main()$'";
       };
+    minizinc =
+      language:
+      {
+        day,
+        source,
+        year,
+        ...
+      }:
+      {
+        inputs = [
+          pkgs.minizinc
+          (makeBin {
+            inherit
+              day
+              language
+              source
+              year
+              ;
+            name = "input";
+          })
+        ];
+        text = "input > /tmp/aoc${year}day${day}.dzn && minizinc --solver coin-bc ${source + ".mzn"} /tmp/aoc${year}day${day}.dzn";
+      };
     nix =
       {
         day,
@@ -238,4 +286,6 @@ rec {
   };
 
   repeat = count: element: if count <= 0 then [ ] else [ element ] ++ (repeat (count - 1) element);
+
+  padDay = day: if (builtins.stringLength day) <= 1 then "0" + day else day;
 }

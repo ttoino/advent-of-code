@@ -8,7 +8,7 @@ I do this mostly for fun, and as such don't expect any optimal solutions, just o
 
 | Year |              Language              | Completion |
 | :--- | :--------------------------------: | ---------: |
-| 2025 |                Rust                |        2 ★ |
+| 2025 |          Rust / MiniZinc           |       24 ★ |
 | 2024 | [It's complicated](2024#languages) |       37 ★ |
 | 2023 |               Python               |       31 ★ |
 | 2022 |               Python               |       31 ★ |
