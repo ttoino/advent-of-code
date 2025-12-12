@@ -19,3 +19,29 @@ I do this mostly for fun, and as such don't expect any optimal solutions, just o
 | 2017 |               Python               |       50 ★ |
 | 2016 |               Python               |       50 ★ |
 | 2015 |               Python               |       50 ★ |
+
+## Running
+
+I use Nix to manage my solutions, along with some helper scripts to automatically fetch the inputs/expected outputs of each day.
+
+To run a specific day, use the following command:
+
+```sh
+nix run '.#<year>.day<day>'
+```
+
+This will ask you for your advent of code session cookie, which you can copy from your browser. It will then fetch the required input and cache it for future uses.
+
+For example, running day 3 of 2021 would look like this:
+
+```sh
+nix run '.#2021.day03'
+```
+
+To check if the output matches the expected output, use the following command:
+
+```sh
+nix run '.#<year>.day<day>.verify'
+```
+
+This will return 0 if the solution is correct, and will show a diff if it's not.
