@@ -1,17 +1,24 @@
-import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
-import re
-from collections import Counter
+import sys
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    instructions = [i.strip().split() for i in inf]
+
+def solve(instructions: list[list[str]], part2: bool) -> int:
     registers = {c: 0 for c in "abcd"}
-    registers["a"] = 7
+    registers["a"] = 12 if part2 else 7
     ip = 0
 
     while 0 <= ip < len(instructions):
+        match instructions[ip : ip + 5]:
+            case [
+                ["inc", a],
+                ["dec", c],
+                ["jnz", c1, "-2"],
+                ["dec", d],
+                ["jnz", d1, "-5"],
+            ] if c == c1 and d == d1 and part2:
+                registers[a] += registers[c] * registers[d]
+                ip += 5
+                continue
+
         match instructions[ip]:
             case ["cpy", x, y]:
                 if y in "abcd":
@@ -28,8 +35,23 @@ with open("input") as inf, open("part1.out", "w+") as outf:
                 x = registers[x] if x in "abcd" else int(x)
                 if 0 <= ip + x < len(instructions):
                     i = instructions[ip + x][0]
-                    instructions[ip + x][0] = "dec" if i == "inc" else ("inc" if i in ("dec", "tgl") else ("cpy" if i == "jnz" else "jnz"))
+                    instructions[ip + x][0] = (
+                        "dec"
+                        if i == "inc"
+                        else (
+                            "inc"
+                            if i in ("dec", "tgl")
+                            else ("cpy" if i == "jnz" else "jnz")
+                        )
+                    )
 
         ip += 1
-    
-    outf.write(str(registers["a"]))
+
+    return registers["a"]
+
+
+if __name__ == "__main__":
+    instructions = [i.split() for i in sys.stdin.readlines()]
+
+    print(f"Part 1: {solve(instructions, False)}")
+    print(f"Part 2: {solve(instructions, True)}")

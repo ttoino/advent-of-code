@@ -1,17 +1,27 @@
-import itertools as it
+import sys
 import more_itertools as mit
-import functools as ft
-import operator as op
-import re
-from collections import Counter
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    map = [tuple(c == "." for c in inf.readline().strip())]
 
-    while len(map) < 40:
-        map.append(
-            tuple(not ((not l and not c and r) or (l and not c and not r) or
-                       (not l and c and r) or (l and c and not r))
-                  for l, c, r in mit.triplewise((True, *map[-1], True))))
+def solve(inp: list[tuple[bool, ...]], part2: bool) -> int:
+    size = 400000 if part2 else 40
+    while len(inp) < size:
+        inp.append(
+            tuple(
+                not (
+                    (not l and not c and r)
+                    or (l and not c and not r)
+                    or (not l and c and r)
+                    or (l and c and not r)
+                )
+                for l, c, r in mit.triplewise((True, *inp[-1], True))
+            )
+        )
 
-    outf.write(str(sum(sum(i) for i in map)))
+    return sum(sum(i) for i in inp)
+
+
+if __name__ == "__main__":
+    inp = [tuple(c == "." for c in sys.stdin.readlines())]
+
+    print(f"Part 1: {solve(inp, False)}")
+    print(f"Part 2: {solve(inp, True)}")

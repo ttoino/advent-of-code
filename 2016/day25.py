@@ -1,24 +1,21 @@
 import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
-import re
-from collections import Counter
+import sys
 
-def solve(instructions, a):
+
+def solve(instructions: list[list[str]], register_a: int) -> bool:
     registers = {c: 0 for c in "abcd"}
-    registers["a"] = a
+    registers["a"] = register_a
     ip = 0
     transmission = []
 
     while 0 <= ip < len(instructions):
-        match instructions[ip:ip+5]:
+        match instructions[ip : ip + 5]:
             case [
                 ["inc", a],
                 ["dec", c],
                 ["jnz", c1, "-2"],
                 ["dec", d],
-                ["jnz", d1, "-5"]
+                ["jnz", d1, "-5"],
             ] if c == c1 and d == d1:
                 registers[a] += registers[c] * registers[d]
                 ip += 5
@@ -40,7 +37,15 @@ def solve(instructions, a):
                 x = registers[x] if x in "abcd" else int(x)
                 if 0 <= ip + x < len(instructions):
                     i = instructions[ip + x][0]
-                    instructions[ip + x][0] = "dec" if i == "inc" else ("inc" if i in ("dec", "tgl", "out") else ("cpy" if i == "jnz" else "jnz"))
+                    instructions[ip + x][0] = (
+                        "dec"
+                        if i == "inc"
+                        else (
+                            "inc"
+                            if i in ("dec", "tgl", "out")
+                            else ("cpy" if i == "jnz" else "jnz")
+                        )
+                    )
             case ["out", x]:
                 transmission.append(registers[x] if x in "abcd" else int(x))
                 if len(transmission) >= 2 and transmission[-2:] not in ([0, 1], [1, 0]):
@@ -50,11 +55,14 @@ def solve(instructions, a):
 
         ip += 1
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    instructions = [i.strip().split() for i in inf]
-    
+    return False
+
+
+if __name__ == "__main__":
+    instructions = [i.split() for i in sys.stdin.readlines()]
+    result = ""
+
     for i in it.count():
-        print(i, end="\r")
-        if solve(instructions, i):    
-            outf.write(str(i))
+        if solve(instructions, i):
+            print(f"Solution: {i}")
             break

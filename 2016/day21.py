@@ -1,15 +1,13 @@
 import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
-import re
-from collections import Counter
+import sys
+from typing import Iterable
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    s = list("abcdefgh")
 
-    for i in inf:
-        match i.strip().split():
+def part1(inp: list[list[str]], start: Iterable[str] = "abcdefgh") -> str:
+    s = list(start)
+
+    for i in inp:
+        match i:
             case ["swap", "position", x, "with", "position", y]:
                 x = int(x)
                 y = int(y)
@@ -32,12 +30,30 @@ with open("input") as inf, open("part1.out", "w+") as outf:
                 x = int(x)
                 y = int(y)
                 x, y = min(x, y), max(x, y)
-                s[x:y+1] = s[x:y+1][::-1]
+                s[x : y + 1] = s[x : y + 1][::-1]
             case ["move", "position", x, "to", "position", y]:
                 x = int(x)
                 y = int(y)
                 c = s[x]
                 del s[x]
                 s.insert(y, c)
-    
-    outf.write("".join(s))
+
+    return "".join(s)
+
+
+def part2(inp: list[list[str]]) -> str:
+    o = "abcdefgh"
+    target = "fbgdceah"
+
+    for p in it.permutations(o, len(o)):
+        if part1(inp, p) == target:
+            return "".join(p)
+
+    return ""
+
+
+if __name__ == "__main__":
+    inp = [i.split() for i in sys.stdin.readlines()]
+
+    print(f"Part 1: {part1(inp)}")
+    print(f"Part 2: {part2(inp)}")

@@ -1,21 +1,13 @@
-from curses.ascii import isdigit
+import sys
 import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
-import re
-from collections import Counter, deque
+from collections import deque
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    maze = [i.strip() for i in inf]
-    width, height = len(maze[0]), len(maze)
-    maze = list("".join(maze))
 
-    points = {
-        c: (i % width, i // width, {})
-        for i, c in enumerate(maze)
-        if c.isdigit()
-    }
+def solve(inp: list[str]) -> tuple[int, int]:
+    width = len(inp[0])
+    maze = "".join(inp)
+
+    points = {c: (i % width, i // width, {}) for i, c in enumerate(maze) if c.isdigit()}
 
     for c, (x, y, dists) in points.items():
         q = deque([(0, (x, y))])
@@ -36,9 +28,19 @@ with open("input") as inf, open("part1.out", "w+") as outf:
             for dx, dy in (0, 1), (1, 0), (0, -1), (-1, 0):
                 q.appendleft((d + 1, (p[0] + dx, p[1] + dy)))
 
-    outf.write(
-        str(
-            min(
-                sum(points[a][2][b]
-                    for a, b in it.pairwise(p))
-                for p in it.permutations(points.keys()))))
+    return min(
+        sum(points[a][2][b] for a, b in it.pairwise(p))
+        for p in it.permutations(points.keys())
+    ), min(
+        sum(points[a][2][b] for a, b in it.pairwise(("0", *p, "0")))
+        for p in it.permutations(set(points.keys()) - {"0"})
+    )
+
+
+if __name__ == "__main__":
+    inp = sys.stdin.readlines()
+
+    part1, part2 = solve(inp)
+
+    print(f"Part 1: {part1}")
+    print(f"Part 2: {part2}")

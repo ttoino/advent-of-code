@@ -1,10 +1,24 @@
-import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
-import re
-from collections import Counter
+def part1(inp: int) -> int:
+    n = f"{inp:b}"
+    return int(n[1:] + n[0], 2)
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    n = f"{int(inf.readline().strip()):b}"
-    outf.write(str(int(n[1:] + n[0], 2)))
+
+def part2(n: int) -> int:
+    r = 1
+    s = -1
+
+    for i in range(1, n):
+        if r == i:
+            r = 1
+            s += 1
+        else:
+            r += 1 + (r >= 3**s)
+
+    return r
+
+
+if __name__ == "__main__":
+    inp = int(input())
+
+    print(f"Part 1: {part1(inp)}")
+    print(f"Part 2: {part2(inp)}")

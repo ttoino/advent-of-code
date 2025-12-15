@@ -1,14 +1,9 @@
-from curses.ascii import isalpha
-import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
-import re
-from collections import Counter
+import sys
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    instructions = [i.strip().split() for i in inf]
+
+def solve(instructions: list[list[str]], part2: bool) -> int:
     registers = {c: 0 for c in "abcd"}
+    registers["c"] = int(part2)
     ip = 0
 
     while 0 <= ip < len(instructions):
@@ -25,5 +20,12 @@ with open("input") as inf, open("part1.out", "w+") as outf:
                     continue
 
         ip += 1
-    
-    outf.write(str(registers["a"]))
+
+    return registers["a"]
+
+
+if __name__ == "__main__":
+    instructions = [i.split() for i in sys.stdin.readlines()]
+
+    print(f"Part 1: {solve(instructions, False)}")
+    print(f"Part 2: {solve(instructions, True)}")

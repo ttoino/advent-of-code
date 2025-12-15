@@ -1,27 +1,34 @@
-import itertools as it
+import sys
+from time import sleep
 import more_itertools as mit
-import functools as ft
-import operator as op
 import re
-from collections import Counter
 
 
-def get(code: list, x: int, y: int):
+def print_code(code):
+    print(
+        "\x1b[H\x1b[J"
+        + "\n".join(
+            "".join("#" if c else " " for c in line) for line in mit.chunked(code, 50)
+        )
+    )
+    sleep(0.1)
+
+
+def get(code: list[int], x: int, y: int) -> int:
     return code[(x % 50) + (y % 6) * 50]
 
 
-def set(code: list, x: int, y: int, v):
+def set(code: list[int], x: int, y: int, v):
     code[(x % 50) + (y % 6) * 50] = v
 
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    p = re.compile(r" |=")
-
+def solve(inp: list[list[str]]) -> tuple[int, str]:
     code = [0 for _ in range(50 * 6)]
 
-    for i in inf:
+    for i in inp:
         new_code = [i for i in code]
-        match p.split(i.strip()):
+
+        match i:
             case ["rect", size]:
                 w, h = map(int, size.split("x"))
                 for x in range(w):
@@ -37,7 +44,18 @@ with open("input") as inf, open("part1.out", "w+") as outf:
                 b = int(b)
                 for y in range(6):
                     set(new_code, x, y, get(code, x, y - b))
+
         code = new_code
+        print_code(code)
 
-    outf.write(str(sum(code)))
+    return sum(code), "Look above"
 
+
+if __name__ == "__main__":
+    p = re.compile(r" |=")
+    inp = [p.split(i) for i in sys.stdin.readlines()]
+
+    part1, part2 = solve(inp)
+
+    print(f"Part 1: {part1}")
+    print(f"Part 2: {part2}")

@@ -1,10 +1,13 @@
-import itertools as it
-import more_itertools as mit
-import functools as ft
-import operator as op
-import re
 from collections import Counter
-from statistics import mode
+import sys
 
-with open("input") as inf, open("part1.out", "w+") as outf:
-    outf.write("".join(mode(a) for a in zip(*(i.strip() for i in inf))))
+
+def solve(inp: list[str], part2: bool) -> str:
+    return "".join(Counter(a).most_common()[-1 if part2 else 0][0] for a in zip(*inp))
+
+
+if __name__ == "__main__":
+    inp = sys.stdin.readlines()
+
+    print(f"Part 1: {solve(inp, False)}")
+    print(f"Part 2: {solve(inp, True)}")
