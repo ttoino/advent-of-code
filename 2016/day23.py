@@ -1,3 +1,4 @@
+from copy import deepcopy
 import sys
 
 
@@ -53,5 +54,5 @@ def solve(instructions: list[list[str]], part2: bool) -> int:
 if __name__ == "__main__":
     instructions = [i.split() for i in sys.stdin.readlines()]
 
-    print(f"Part 1: {solve(instructions, False)}")
-    print(f"Part 2: {solve(instructions, True)}")
+    print(f"Part 1: {solve(deepcopy(instructions), False)}")
+    print(f"Part 2: {solve(deepcopy(instructions), True)}")

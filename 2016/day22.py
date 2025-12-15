@@ -33,7 +33,7 @@ def part2(nodes: list[tuple[int, int, int, int, int, int]]) -> int:
 if __name__ == "__main__":
     p = re.compile(r"-[xy]|[T%]?\s+")
     inp = [
-        cast("tuple[int, int, int, int, int, int]", tuple(map(int, p.split(i)[1:])))
+        cast("tuple[int, int, int, int, int, int]", tuple(map(int, p.split(i)[1:-1])))
         for i in sys.stdin.readlines()[2:]
     ]
 

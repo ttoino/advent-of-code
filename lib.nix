@@ -224,7 +224,12 @@ rec {
     python =
       { source, ... }:
       {
-        inputs = [ (pkgs.python3.withPackages (pp: [ pp.more-itertools ])) ];
+        inputs = [
+          (pkgs.python3.withPackages (pp: [
+            pp.more-itertools
+            pp.intervaltree
+          ]))
+        ];
         text = "python3 ${source + ".py"}";
       };
     rust = compiledLanguage (

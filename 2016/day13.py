@@ -1,7 +1,7 @@
+import shutil
 from time import sleep
 import functools as ft
 import heapq as hq
-import os
 
 
 @ft.cache
@@ -32,7 +32,7 @@ def part1(n: int) -> int:
 
 
 def part2(n: int) -> int:
-    tw, th = os.get_terminal_size()
+    tw, th = shutil.get_terminal_size()
 
     print(
         "\n".join(

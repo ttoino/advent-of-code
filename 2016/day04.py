@@ -33,9 +33,7 @@ if __name__ == "__main__":
     pattern = re.compile(r"((?:\w+-)+)(\d+)\[(\w{5})\]")
     inp = [
         (a, int(b), c)
-        for a, b, c in (
-            m.groups() for i in sys.stdin.readlines() if (m := pattern.match(i))
-        )
+        for a, b, c in (pattern.match(i).groups() for i in sys.stdin.readlines())
     ]
 
     print(f"Part 1: {part1(inp)}")

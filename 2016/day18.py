@@ -1,4 +1,3 @@
-import sys
 import more_itertools as mit
 
 
@@ -21,7 +20,7 @@ def solve(inp: list[tuple[bool, ...]], part2: bool) -> int:
 
 
 if __name__ == "__main__":
-    inp = [tuple(c == "." for c in sys.stdin.readlines())]
+    inp = [tuple(c == "." for c in input())]
 
     print(f"Part 1: {solve(inp, False)}")
     print(f"Part 2: {solve(inp, True)}")
