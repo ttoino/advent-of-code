@@ -1,5 +1,4 @@
 import sys
-
 from string import ascii_lowercase
 
 
@@ -7,7 +6,7 @@ def react(s: str):
     i = 0
     while i < len(s) - 1:
         if s[i] == s[i + 1].swapcase():
-            s = s[:i] + s[i + 2:]
+            s = s[:i] + s[i + 2 :]
             i -= 1
             continue
         i += 1
@@ -19,7 +18,12 @@ def part1(inp: str):
 
 
 def part2(inp: str):
-    return min((react(''.join((c for c in inp if c.lower() != l))) for l in ascii_lowercase))
+    return min(
+        (
+            react("".join((c for c in inp if c.lower() != l)))
+            for l in ascii_lowercase
+        )
+    )
 
 
 if __name__ == "__main__":

@@ -1,32 +1,31 @@
 import sys
 
-
 MIRROR_MAP = {
-    '.': {
+    ".": {
         (1, 0): [(1, 0)],
         (-1, 0): [(-1, 0)],
         (0, 1): [(0, 1)],
         (0, -1): [(0, -1)],
     },
-    '/': {
+    "/": {
         (1, 0): [(0, -1)],
         (0, -1): [(1, 0)],
         (-1, 0): [(0, 1)],
         (0, 1): [(-1, 0)],
     },
-    '\\': {
+    "\\": {
         (1, 0): [(0, 1)],
         (0, 1): [(1, 0)],
         (-1, 0): [(0, -1)],
         (0, -1): [(-1, 0)],
     },
-    '-': {
+    "-": {
         (1, 0): [(1, 0)],
         (-1, 0): [(-1, 0)],
         (0, 1): [(1, 0), (-1, 0)],
         (0, -1): [(1, 0), (-1, 0)],
     },
-    '|': {
+    "|": {
         (0, 1): [(0, 1)],
         (0, -1): [(0, -1)],
         (1, 0): [(0, 1), (0, -1)],
@@ -42,7 +41,13 @@ def part1(inp: list[str]) -> int:
     while len(beams) > 0:
         beam = beams.pop()
         (beam_x, beam_y), beam_dir = beam
-        if beam in visited or beam_x < 0 or beam_x >= len(mirrors[0]) or (beam_y < 0) or (beam_y >= len(mirrors)):
+        if (
+            beam in visited
+            or beam_x < 0
+            or beam_x >= len(mirrors[0])
+            or (beam_y < 0)
+            or (beam_y >= len(mirrors))
+        ):
             continue
         visited.add(beam)
         mirror = mirrors[beam_y][beam_x]
@@ -70,13 +75,20 @@ def part2(inp: list[str]) -> int:
                 ends.add(((0, beam_y), (-beam_dir[0], -beam_dir[1])))
                 continue
             elif beam_x >= len(mirrors[0]):
-                ends.add(((len(mirrors[0]) - 1, beam_y), (-beam_dir[0], -beam_dir[1])))
+                ends.add(
+                    (
+                        (len(mirrors[0]) - 1, beam_y),
+                        (-beam_dir[0], -beam_dir[1]),
+                    )
+                )
                 continue
             elif beam_y < 0:
                 ends.add(((beam_x, 0), (-beam_dir[0], -beam_dir[1])))
                 continue
             elif beam_y >= len(mirrors):
-                ends.add((beam_x, len(mirrors) - 1, (-beam_dir[0], -beam_dir[1])))
+                ends.add(
+                    (beam_x, len(mirrors) - 1, (-beam_dir[0], -beam_dir[1]))
+                )
                 continue
             visited.add(beam)
             mirror = mirrors[beam_y][beam_x]
@@ -85,6 +97,7 @@ def part2(inp: list[str]) -> int:
         solution = len({v[0] for v in visited})
         for e in ends:
             solutions[e] = solution
+
     for x in range(len(mirrors[0])):
         solve(((x, 0), (0, 1)))
         solve(((x, len(mirrors) - 1), (0, -1)))

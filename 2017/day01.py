@@ -7,7 +7,13 @@ def part1(inp: str) -> int:
 
 def part2(inp: str) -> int:
     l = inp
-    return sum((int(a) for a, b in zip(l, l[len(l) // 2:] + l[:len(l) // 2]) if a == b))
+    return sum(
+        (
+            int(a)
+            for a, b in zip(l, l[len(l) // 2 :] + l[: len(l) // 2])
+            if a == b
+        )
+    )
 
 
 if __name__ == "__main__":

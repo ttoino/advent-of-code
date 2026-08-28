@@ -1,5 +1,5 @@
-import itertools as it
 import heapq as hq
+import itertools as it
 
 
 def is_valid(state: tuple[int, ...], size: int):
@@ -27,7 +27,9 @@ def h(state: tuple[int, ...]):
 
 def next_states(state: tuple[int, ...], size: int):
     current_level = state[size]
-    in_current_level = [i for i, v in enumerate(state[:-1]) if v == current_level]
+    in_current_level = [
+        i for i, v in enumerate(state[:-1]) if v == current_level
+    ]
 
     for d in -1, 1:
         st = tuple_helper(state, size, d)

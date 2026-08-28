@@ -1,6 +1,5 @@
-import sys
-
 import itertools as it
+import sys
 from collections import Counter
 
 
@@ -15,7 +14,7 @@ def part1(inp: list[str]):
 
 def part2(inp: list[str]):
     for a, b in it.combinations(inp, 2):
-        s = ''.join((a for a, b in zip(a, b) if a == b))
+        s = "".join((a for a, b in zip(a, b) if a == b))
         if len(s) == 25:
             return s
 

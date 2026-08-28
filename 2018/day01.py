@@ -1,6 +1,5 @@
-import sys
-
 import itertools as it
+import sys
 
 
 def part1(inp: list[int]):

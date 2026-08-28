@@ -13,14 +13,14 @@ def part1(inp: list[list[str]]) -> int:
     instructions = inp
     while len(instructions) > ip >= 0:
         match instructions[ip]:
-            case ['set', x, y]:
+            case ["set", x, y]:
                 registers[x] = get(y)
-            case ['sub', x, y]:
+            case ["sub", x, y]:
                 registers[x] -= get(y)
-            case ['mul', x, y]:
+            case ["mul", x, y]:
                 registers[x] *= get(y)
                 result += 1
-            case ['jnz', x, y]:
+            case ["jnz", x, y]:
                 if get(x) != 0:
                     ip += get(y)
                     continue

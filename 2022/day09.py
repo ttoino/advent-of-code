@@ -1,8 +1,6 @@
 import sys
 
-
-
-DIRS = {'R': (1, 0), 'L': (-1, 0), 'U': (0, -1), 'D': (0, 1)}
+DIRS = {"R": (1, 0), "L": (-1, 0), "U": (0, -1), "D": (0, 1)}
 
 
 def sign(x: int):
@@ -10,7 +8,10 @@ def sign(x: int):
 
 
 def parse(s: str) -> list[tuple[str, int]]:
-    return [(dir, int(amount)) for dir, amount in (line.split() for line in s.splitlines())]
+    return [
+        (dir, int(amount))
+        for dir, amount in (line.split() for line in s.splitlines())
+    ]
 
 
 def part1(inp: list[tuple[str, int]]):
@@ -23,7 +24,10 @@ def part1(inp: list[tuple[str, int]]):
             head_pos = (head_pos[0] + d[0], head_pos[1] + d[1])
             tail_d = (head_pos[0] - tail_pos[0], head_pos[1] - tail_pos[1])
             if abs(tail_d[0]) > 1 or abs(tail_d[1]) > 1:
-                tail_pos = (tail_pos[0] + sign(tail_d[0]), tail_pos[1] + sign(tail_d[1]))
+                tail_pos = (
+                    tail_pos[0] + sign(tail_d[0]),
+                    tail_pos[1] + sign(tail_d[1]),
+                )
             tail_poss.add(tail_pos)
     return len(tail_poss)
 

@@ -1,7 +1,8 @@
 import functools as ft
-import more_itertools as mit
 import operator as op
 from collections import deque
+
+import more_itertools as mit
 
 
 def knot_hash(inp: str):
@@ -13,12 +14,12 @@ def knot_hash(inp: str):
         for i in lengths:
             i = int(i)
             l[:i] = l[:i][::-1]
-            l = l[(i + skip_size) % 256:] + l[:(i + skip_size) % 256]
+            l = l[(i + skip_size) % 256 :] + l[: (i + skip_size) % 256]
             index += i + skip_size
             skip_size += 1
     index %= 256
     l = l[-index:] + l[:-index]
-    return ''.join((f'{ft.reduce(op.xor, c):02x}' for c in mit.chunked(l, 16)))
+    return "".join((f"{ft.reduce(op.xor, c):02x}" for c in mit.chunked(l, 16)))
 
 
 def add_tuples(a, b):
@@ -26,12 +27,36 @@ def add_tuples(a, b):
 
 
 def part1(inp: str) -> int:
-    return sum(map(int, ''.join((f'{int(x, base=16):04b}' for i in range(128) for x in knot_hash(f'{inp}-{i}')))))
+    return sum(
+        map(
+            int,
+            "".join(
+                (
+                    f"{int(x, base=16):04b}"
+                    for i in range(128)
+                    for x in knot_hash(f"{inp}-{i}")
+                )
+            ),
+        )
+    )
 
 
 def part2(inp: str) -> int:
-    grid = list(map(int, ''.join((f'{int(x, base=16):04b}' for i in range(128) for x in knot_hash(f'{inp}-{i}')))))
-    used = set(((x, y) for x in range(128) for y in range(128) if grid[x + y * 128]))
+    grid = list(
+        map(
+            int,
+            "".join(
+                (
+                    f"{int(x, base=16):04b}"
+                    for i in range(128)
+                    for x in knot_hash(f"{inp}-{i}")
+                )
+            ),
+        )
+    )
+    used = set(
+        ((x, y) for x in range(128) for y in range(128) if grid[x + y * 128])
+    )
     regions = 0
     while len(used) > 0:
         regions += 1

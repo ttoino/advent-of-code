@@ -7,18 +7,18 @@ def part1(inp: str) -> int:
     while i < len(s):
         c = s[i]
         match c:
-            case '!' if in_garbage:
+            case "!" if in_garbage:
                 i += 1
-            case '>' if in_garbage:
+            case ">" if in_garbage:
                 in_garbage = False
             case _ if in_garbage:
                 pass
-            case '{':
+            case "{":
                 depth += 1
-            case '}':
+            case "}":
                 score += depth
                 depth -= 1
-            case '<':
+            case "<":
                 in_garbage = True
         i += 1
     return score
@@ -34,18 +34,18 @@ def part2(inp: str) -> int:
     while i < len(s):
         c = s[i]
         match c:
-            case '!' if in_garbage:
+            case "!" if in_garbage:
                 i += 1
-            case '>' if in_garbage:
+            case ">" if in_garbage:
                 in_garbage = False
             case _ if in_garbage:
                 garbage += 1
-            case '{':
+            case "{":
                 depth += 1
-            case '}':
+            case "}":
                 score += depth
                 depth -= 1
-            case '<':
+            case "<":
                 in_garbage = True
         i += 1
     return garbage

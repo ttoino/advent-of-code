@@ -1,5 +1,5 @@
-import sys
 import re
+import sys
 
 
 def part1(inp: list[str]):
@@ -20,7 +20,9 @@ def part1(inp: list[str]):
 def part2(inp: list[str]):
     return len(
         list(
-            w for w in inp if re.search(r"(\w\w)\w*\1", w) and re.search(r"(\w)\w\1", w)
+            w
+            for w in inp
+            if re.search(r"(\w\w)\w*\1", w) and re.search(r"(\w)\w\1", w)
         )
     )
 

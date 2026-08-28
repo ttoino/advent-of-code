@@ -1,7 +1,7 @@
-import shutil
-from time import sleep
 import functools as ft
 import heapq as hq
+import shutil
+from time import sleep
 
 
 @ft.cache

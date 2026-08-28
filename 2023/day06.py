@@ -1,5 +1,4 @@
 import sys
-
 from math import ceil, floor, sqrt
 
 
@@ -25,8 +24,8 @@ if __name__ == "__main__":
     lines = sys.stdin.readlines()
     times = tuple(map(int, lines[0].strip().split()[1:]))
     distances = tuple(map(int, lines[1].strip().split()[1:]))
-    time2 = int(''.join(lines[0].strip().split()[1:]))
-    distance2 = int(''.join(lines[1].strip().split()[1:]))
+    time2 = int("".join(lines[0].strip().split()[1:]))
+    distance2 = int("".join(lines[1].strip().split()[1:]))
 
     print(f"Part 1: {part1((times, distances))}")
     print(f"Part 2: {part2((time2, distance2))}")

@@ -1,17 +1,16 @@
 import sys
 
 
-
 def turn(them, us):
-    them = ord(them) - ord('A') + 1
-    us = ord(us) - ord('X') + 1
+    them = ord(them) - ord("A") + 1
+    us = ord(us) - ord("X") + 1
     score = (us - them + 1) % 3 * 3
     return us + score
 
 
 def turn_p2(them, score):
-    them = ord(them) - ord('A') + 1
-    score = ord(score) - ord('X')
+    them = ord(them) - ord("A") + 1
+    score = ord(score) - ord("X")
     us = (score + them + 1) % 3 + 1
     return us + score * 3
 

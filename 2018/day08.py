@@ -1,5 +1,4 @@
 import sys
-
 from collections import defaultdict
 
 
@@ -18,7 +17,12 @@ def parse_p2(l: list[int]) -> tuple[list[int], int]:
     for i in range(children_count):
         l, s = parse_p2(l)
         children[i + 1] = s
-    return (l[entries:], sum(l[:entries]) if children_count == 0 else sum((children[i] for i in l[:entries])))
+    return (
+        l[entries:],
+        sum(l[:entries])
+        if children_count == 0
+        else sum((children[i] for i in l[:entries])),
+    )
 
 
 def part1(inp: list[int]):

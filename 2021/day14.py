@@ -1,6 +1,5 @@
-import sys
-
 import itertools as it
+import sys
 from collections import Counter
 
 

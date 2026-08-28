@@ -48,7 +48,10 @@ def solve(instructions: list[list[str]], register_a: int) -> bool:
                     )
             case ["out", x]:
                 transmission.append(registers[x] if x in "abcd" else int(x))
-                if len(transmission) >= 2 and transmission[-2:] not in ([0, 1], [1, 0]):
+                if len(transmission) >= 2 and transmission[-2:] not in (
+                    [0, 1],
+                    [1, 0],
+                ):
                     return False
                 elif len(transmission) > 1000:
                     return True

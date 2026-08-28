@@ -1,6 +1,6 @@
+import itertools as it
 import sys
 
-import itertools as it
 import more_itertools as mit
 
 
@@ -37,7 +37,8 @@ def part1(inp: tuple[list[int], list[tuple[tuple[int, ...], ...]]]) -> int:
     while not (b := verify_solved(boards)):
         n = next(numbers)
         boards = [
-            tuple(tuple(255 if i == n else i for i in r) for r in b) for b in boards
+            tuple(tuple(255 if i == n else i for i in r) for r in b)
+            for b in boards
         ]
     return n * sum(filter(lambda x: x != 255, sum(b, ())))
 
@@ -50,7 +51,8 @@ def part2(inp: tuple[list[int], list[tuple[tuple[int, ...], ...]]]) -> int:
     while len(boards) > 0:
         n = next(numbers)
         boards = [
-            tuple(tuple(255 if i == n else i for i in r) for r in b) for b in boards
+            tuple(tuple(255 if i == n else i for i in r) for r in b)
+            for b in boards
         ]
         b = boards[0]
         boards = [b for b in boards if not verify_solved_p2(b)]

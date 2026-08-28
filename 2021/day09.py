@@ -1,9 +1,7 @@
-import sys
-
 import functools as ft
 import itertools as it
 import operator as op
-
+import sys
 
 height_map = None
 w = 0
@@ -28,7 +26,13 @@ def visit(x, y):
     visited_pos.add((x, y))
     if v == 9:
         return 0
-    return 1 + visit(x + 1, y) + visit(x - 1, y) + visit(x, y + 1) + visit(x, y - 1)
+    return (
+        1
+        + visit(x + 1, y)
+        + visit(x - 1, y)
+        + visit(x, y + 1)
+        + visit(x, y - 1)
+    )
 
 
 def part1(inp: tuple[tuple[int, ...], ...]) -> int:

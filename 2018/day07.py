@@ -1,9 +1,8 @@
-import sys
-
 import functools as ft
 import heapq as hq
 import itertools as it
 import operator as op
+import sys
 from collections import defaultdict
 
 
@@ -20,9 +19,10 @@ def part1(inp: dict[str, set[str]]):
 
     def not_ready():
         return ft.reduce(op.or_, graph.values(), set())
+
     q = list(graph.keys() - not_ready())
     hq.heapify(q)
-    result = ''
+    result = ""
     while len(q) > 0:
         n = hq.heappop(q)
         result += n
@@ -39,6 +39,7 @@ def part2(inp: dict[str, set[str]]):
 
     def not_ready():
         return ft.reduce(op.or_, graph.values(), set())
+
     q = list(graph.keys() - not_ready())
     hq.heapify(q)
     visited = set()
@@ -48,7 +49,7 @@ def part2(inp: dict[str, set[str]]):
             if n is None:
                 continue
             workers[i] = (n, t + 1)
-            if t == 60 + ord(n) - ord('A'):
+            if t == 60 + ord(n) - ord("A"):
                 edges = graph[n]
                 del graph[n]
                 for o in edges:

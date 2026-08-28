@@ -1,7 +1,5 @@
-import sys
-
 import functools as ft
-
+import sys
 
 opmap = {
     "forward": lambda p, x: (p[0] + x, p[1]),
@@ -27,7 +25,9 @@ def part2(inp: list[tuple[str, int]]) -> int:
 
 
 if __name__ == "__main__":
-    inp = [(cmd, int(val)) for cmd, val in (line.split() for line in sys.stdin)]
+    inp = [
+        (cmd, int(val)) for cmd, val in (line.split() for line in sys.stdin)
+    ]
 
     print(f"Part 1: {part1(inp)}")
     print(f"Part 2: {part2(inp)}")

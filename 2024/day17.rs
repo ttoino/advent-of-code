@@ -1,5 +1,5 @@
-use std::io;
 use std::collections::HashSet;
+use std::io;
 
 #[derive(Debug, Default, Clone, Eq, Hash, PartialEq)]
 struct State {
@@ -18,21 +18,41 @@ fn get_input() -> (State, Program) {
     let mut buffer = String::new();
 
     io::stdin().read_line(&mut buffer).unwrap();
-    result.register_a = buffer.trim().split(' ').last().unwrap()
-        .parse::<usize>().unwrap();
+    result.register_a = buffer
+        .trim()
+        .split(' ')
+        .last()
+        .unwrap()
+        .parse::<usize>()
+        .unwrap();
 
     io::stdin().read_line(&mut buffer).unwrap();
-    result.register_b = buffer.trim().split(' ').last().unwrap()
-        .parse::<usize>().unwrap();
+    result.register_b = buffer
+        .trim()
+        .split(' ')
+        .last()
+        .unwrap()
+        .parse::<usize>()
+        .unwrap();
 
     io::stdin().read_line(&mut buffer).unwrap();
-    result.register_c = buffer.trim().split(' ').last().unwrap()
-        .parse::<usize>().unwrap();
+    result.register_c = buffer
+        .trim()
+        .split(' ')
+        .last()
+        .unwrap()
+        .parse::<usize>()
+        .unwrap();
 
     io::stdin().read_line(&mut buffer).unwrap();
     io::stdin().read_line(&mut buffer).unwrap();
-    let program: Program = buffer.trim().split(' ').last().unwrap()
-        .split(',').map(|n| n.parse::<usize>().unwrap())
+    let program: Program = buffer
+        .trim()
+        .split(' ')
+        .last()
+        .unwrap()
+        .split(',')
+        .map(|n| n.parse::<usize>().unwrap())
         .collect();
 
     result.register_a = 190384625499151;
@@ -47,7 +67,7 @@ impl State {
             5 => self.register_b,
             6 => self.register_c,
             7 => panic!(),
-            _ => op
+            _ => op,
         }
     }
 
@@ -59,35 +79,45 @@ impl State {
             let operand = program[self.instruction_pointer + 1];
 
             match operation {
-                0 => { // adv
+                0 => {
+                    // adv
                     self.register_a /= 1 << self.combo(operand);
-                },
-                1 => { // bxl
+                }
+                1 => {
+                    // bxl
                     self.register_b ^= operand;
-                },
-                2 => { // bst
+                }
+                2 => {
+                    // bst
                     self.register_b = self.combo(operand) % 8;
-                },
-                3 => if self.register_a != 0 { // jnz
-                    self.instruction_pointer = operand;
-                    continue;
-                },
-                4 => { //bxc
+                }
+                3 => {
+                    if self.register_a != 0 {
+                        // jnz
+                        self.instruction_pointer = operand;
+                        continue;
+                    }
+                }
+                4 => {
+                    //bxc
                     self.register_b ^= self.register_c;
-                },
-                5 => { // out
+                }
+                5 => {
+                    // out
                     output.push(self.combo(operand) % 8);
-                },
-                6 => { // bdv
+                }
+                6 => {
+                    // bdv
                     self.register_b = self.register_a / (1 << self.combo(operand));
-                },
-                7 => { // cdv
+                }
+                7 => {
+                    // cdv
                     self.register_c = self.register_a / (1 << self.combo(operand));
-                },
-                _ => {},
+                }
+                _ => {}
             };
             self.instruction_pointer += 2;
-        };
+        }
 
         output
     }
@@ -96,10 +126,21 @@ impl State {
 fn part1(state: State, program: &Program) -> String {
     let mut state = state;
     let output = state.solve(&program);
-    output.iter().map(usize::to_string).reduce(|a, s| format!("{a},{s}")).unwrap()
+    output
+        .iter()
+        .map(usize::to_string)
+        .reduce(|a, s| format!("{a},{s}"))
+        .unwrap()
 }
 
-fn part2_iter(original_state: State, program: &Program, result: &mut usize, cache: &mut HashSet<(usize, usize)>, current_a: usize, depth: usize) {
+fn part2_iter(
+    original_state: State,
+    program: &Program,
+    result: &mut usize,
+    cache: &mut HashSet<(usize, usize)>,
+    current_a: usize,
+    depth: usize,
+) {
     if !cache.insert((current_a, depth)) {
         return;
     }
@@ -122,15 +163,35 @@ fn part2_iter(original_state: State, program: &Program, result: &mut usize, cach
             }
         }
 
-        if output.len() > depth && output.iter().take(depth + 1).zip(program.iter()).all(|(a, b)| a == b) {
-            part2_iter(original_state.clone(), &program, result, cache, a, depth + 1);
+        if output.len() > depth
+            && output
+                .iter()
+                .take(depth + 1)
+                .zip(program.iter())
+                .all(|(a, b)| a == b)
+        {
+            part2_iter(
+                original_state.clone(),
+                &program,
+                result,
+                cache,
+                a,
+                depth + 1,
+            );
         }
     }
 }
 
 fn part2(state: State, program: &Program) -> usize {
     let mut result: usize = usize::MAX;
-    part2_iter(state.clone(), program, &mut result, &mut HashSet::new(), 0, 0);
+    part2_iter(
+        state.clone(),
+        program,
+        &mut result,
+        &mut HashSet::new(),
+        0,
+        0,
+    );
     result
 }
 

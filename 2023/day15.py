@@ -11,7 +11,7 @@ def hash(code: str) -> int:
 
 
 def parse(i: str) -> list[str]:
-    return i.strip().split(',')
+    return i.strip().split(",")
 
 
 def part1(inp: list[str]) -> int:
@@ -30,14 +30,14 @@ def part2(inp: list[str]) -> int:
     codes = inp
     hashmap = tuple(({} for _ in range(256)))
     for code in codes:
-        if code[-1] == '-':
+        if code[-1] == "-":
             hashmap[hash(code[:-1])].pop(code[:-1], None)
         else:
             hashmap[hash(code[:-2])][code[:-2]] = int(code[-1])
     result = 0
     for i, hashmap in enumerate(hashmap):
         for j, (code, value) in enumerate(list(hashmap.items())):
-            print(f'{i} {j} {code} {value}')
+            print(f"{i} {j} {code} {value}")
             result += (i + 1) * (j + 1) * value
     return result
 

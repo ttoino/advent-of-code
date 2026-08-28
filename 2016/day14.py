@@ -1,7 +1,7 @@
-from hashlib import md5
-import itertools as it
 import functools as ft
+import itertools as it
 import re
+from hashlib import md5
 
 
 @ft.cache

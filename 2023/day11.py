@@ -1,25 +1,24 @@
-import sys
-
 import itertools as it
+import sys
 
 
 def part1(inp: list[str]) -> int:
     universe = inp
     expanded_universe = []
     for line in universe:
-        if all((c == '.' for c in line)):
+        if all((c == "." for c in line)):
             expanded_universe.append(line)
         expanded_universe.append(line)
     universe = zip(*expanded_universe)
     expanded_universe = []
     for line in universe:
-        if all((c == '.' for c in line)):
+        if all((c == "." for c in line)):
             expanded_universe.append(line)
         expanded_universe.append(line)
     galaxies = set()
     for i, l in enumerate(expanded_universe):
         for j, c in enumerate(l):
-            if c == '#':
+            if c == "#":
                 galaxies.add((i, j))
     result = 0
     for g1, g2 in it.combinations(galaxies, 2):
@@ -31,16 +30,16 @@ def part2(inp: list[str]) -> int:
     universe = inp
     expanded_rows = []
     for i, line in enumerate(universe):
-        if all((c == '.' for c in line)):
+        if all((c == "." for c in line)):
             expanded_rows.append(i)
     expanded_cols = []
     for i, line in enumerate(zip(*universe)):
-        if all((c == '.' for c in line)):
+        if all((c == "." for c in line)):
             expanded_cols.append(i)
     galaxies = set()
     for i, l in enumerate(universe):
         for j, c in enumerate(l):
-            if c == '#':
+            if c == "#":
                 galaxies.add((i, j))
     result = 0
     expansion = 1000000

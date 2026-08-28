@@ -1,6 +1,7 @@
-import sys
-import more_itertools as mit
 import re
+import sys
+
+import more_itertools as mit
 
 
 def part1(inp: list[list[str]]) -> int:

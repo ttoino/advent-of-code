@@ -1,7 +1,5 @@
 import sys
 
-
-
 CYCLES = {20, 60, 100, 140, 180, 220}
 
 FONT = {
@@ -16,7 +14,9 @@ FONT = {
 def ocr(paper: str) -> str:
     lines = [line.rstrip() for line in paper.splitlines()]
     width = max(len(l) for l in lines)
-    empty_cols = [all(len(l) <= c or l[c] == " " for l in lines) for c in range(width)]
+    empty_cols = [
+        all(len(l) <= c or l[c] == " " for l in lines) for c in range(width)
+    ]
 
     letters = []
     start = 0
@@ -49,9 +49,9 @@ def part1(inp: list[str]):
             vals.append(cycle * x)
 
     for i in inp:
-        if i.startswith('noop'):
+        if i.startswith("noop"):
             inc_cycle()
-        elif i.startswith('addx'):
+        elif i.startswith("addx"):
             inc_cycle()
             inc_cycle()
             x += int(i.split()[1])
@@ -67,21 +67,21 @@ def part2(inp: list[str]):
     def inc_cycle():
         nonlocal x, cycle
         pos = cycle % 40
-        line.append('█' if x - 1 <= pos <= x + 1 else ' ')
+        line.append("█" if x - 1 <= pos <= x + 1 else " ")
         if pos == 39:
-            lines.append(''.join(line))
+            lines.append("".join(line))
             line.clear()
         cycle += 1
 
     for i in inp:
-        if i.startswith('noop'):
+        if i.startswith("noop"):
             inc_cycle()
-        elif i.startswith('addx'):
+        elif i.startswith("addx"):
             inc_cycle()
             inc_cycle()
             x += int(i.split()[1])
 
-    return ocr('\n'.join(lines))
+    return ocr("\n".join(lines))
 
 
 if __name__ == "__main__":

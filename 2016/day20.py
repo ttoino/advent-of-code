@@ -1,5 +1,6 @@
 import sys
 from typing import cast
+
 from intervaltree import IntervalTree
 
 

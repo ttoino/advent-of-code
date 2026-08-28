@@ -1,11 +1,12 @@
-import sys
-
 import re
+import sys
 from collections import Counter, defaultdict
 
 
 def part1(inp: list[str]):
-    pattern = re.compile('\\[\\d{4}-\\d{2}-\\d{2} \\d{2}:(\\d{2})] (?:Guard #(\\d+) begins shift|(wakes up)|(falls asleep))')
+    pattern = re.compile(
+        "\\[\\d{4}-\\d{2}-\\d{2} \\d{2}:(\\d{2})] (?:Guard #(\\d+) begins shift|(wakes up)|(falls asleep))"
+    )
     l = sorted(inp)
     c = Counter()
     d = defaultdict(Counter)
@@ -13,9 +14,9 @@ def part1(inp: list[str]):
     start = -1
     for i in l:
         match pattern.match(i).groups():
-            case [mins, None, None, 'falls asleep']:
+            case [mins, None, None, "falls asleep"]:
                 start = int(mins)
-            case [mins, None, 'wakes up', None]:
+            case [mins, None, "wakes up", None]:
                 for m in range(start, int(mins)):
                     c[id] += 1
                     d[id][m] += 1
@@ -26,16 +27,18 @@ def part1(inp: list[str]):
 
 
 def part2(inp: list[str]):
-    pattern = re.compile('\\[\\d{4}-\\d{2}-\\d{2} \\d{2}:(\\d{2})] (?:Guard #(\\d+) begins shift|(wakes up)|(falls asleep))')
+    pattern = re.compile(
+        "\\[\\d{4}-\\d{2}-\\d{2} \\d{2}:(\\d{2})] (?:Guard #(\\d+) begins shift|(wakes up)|(falls asleep))"
+    )
     l = sorted(inp)
     c = Counter()
     id = -1
     start = -1
     for i in l:
         match pattern.match(i).groups():
-            case [mins, None, None, 'falls asleep']:
+            case [mins, None, None, "falls asleep"]:
                 start = int(mins)
-            case [mins, None, 'wakes up', None]:
+            case [mins, None, "wakes up", None]:
                 for m in range(start, int(mins)):
                     c[id, m] += 1
             case [_, _id, None, None]:

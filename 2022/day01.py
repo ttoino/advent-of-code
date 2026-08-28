@@ -1,9 +1,8 @@
 import sys
 
 
-
 def parse(s: str) -> list[int]:
-    return [sum(map(int, e.splitlines())) for e in s.split('\n\n')]
+    return [sum(map(int, e.splitlines())) for e in s.split("\n\n")]
 
 
 def part1(inp: list[int]):

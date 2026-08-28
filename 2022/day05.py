@@ -1,15 +1,14 @@
 import sys
 
 
-
 def parse(s: str) -> tuple[list[list[str]], list[tuple[int, int, int]]]:
-    crates_inp, instructions = s.split('\n\n')
+    crates_inp, instructions = s.split("\n\n")
     crates_inp = reversed(crates_inp.splitlines()[:-1])
     crates = [list() for _ in range(9)]
     for l in crates_inp:
         for i, c in enumerate(crates):
             crate = l[i * 4 + 1]
-            if crate != ' ':
+            if crate != " ":
                 c.append(crate)
     moves = []
     for i in instructions.splitlines():
@@ -24,7 +23,7 @@ def part1(inp: tuple[list[list[str]], list[tuple[int, int, int]]]):
     for count, start, end in moves:
         for _ in range(count):
             crates[end - 1].append(crates[start - 1].pop())
-    return ''.join((c[-1] for c in crates))
+    return "".join((c[-1] for c in crates))
 
 
 def part2(inp: tuple[list[list[str]], list[tuple[int, int, int]]]):
@@ -34,7 +33,7 @@ def part2(inp: tuple[list[list[str]], list[tuple[int, int, int]]]):
         crates[end - 1].extend(crates[start - 1][-count:])
         for _ in range(count):
             crates[start - 1].pop()
-    return ''.join((c[-1] for c in crates))
+    return "".join((c[-1] for c in crates))
 
 
 if __name__ == "__main__":

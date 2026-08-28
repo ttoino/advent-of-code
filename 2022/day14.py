@@ -1,9 +1,7 @@
-import sys
-
 import functools as ft
 import itertools as it
 import operator as op
-
+import sys
 
 
 def path(x1, y1, x2, y2):
@@ -18,7 +16,10 @@ def sum_tuples(*t):
 
 
 def parse(s: str) -> list[list[tuple[int, int]]]:
-    return [[tuple(map(int, j.split(','))) for j in i.split(' -> ')] for i in s.splitlines()]
+    return [
+        [tuple(map(int, j.split(","))) for j in i.split(" -> ")]
+        for i in s.splitlines()
+    ]
 
 
 def part1(inp: list[list[tuple[int, int]]]):
@@ -69,11 +70,15 @@ def part2(inp: list[list[tuple[int, int]]]):
             if (next_pos := sum_tuples(current_pos, (0, 1))) not in obstacles:
                 to_add.clear()
                 current_pos = next_pos
-            elif (next_pos := sum_tuples(current_pos, (-1, 1))) not in obstacles:
+            elif (
+                next_pos := sum_tuples(current_pos, (-1, 1))
+            ) not in obstacles:
                 if sum_tuples(current_pos, (1, 1)) not in obstacles:
                     to_add.clear()
                 current_pos = next_pos
-            elif (next_pos := sum_tuples(current_pos, (1, 1))) not in obstacles:
+            elif (
+                next_pos := sum_tuples(current_pos, (1, 1))
+            ) not in obstacles:
                 current_pos = next_pos
             else:
                 break

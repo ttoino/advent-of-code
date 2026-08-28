@@ -4,7 +4,11 @@ from hashlib import md5
 
 def solve(inp: str, prefix: str):
     for i in it.count():
-        if md5(bytes(f"{inp}{i}", encoding="ascii")).hexdigest().startswith(prefix):
+        if (
+            md5(bytes(f"{inp}{i}", encoding="ascii"))
+            .hexdigest()
+            .startswith(prefix)
+        ):
             return i
 
 

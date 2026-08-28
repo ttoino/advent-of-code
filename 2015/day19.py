@@ -1,5 +1,5 @@
-import sys
 import re
+import sys
 
 
 def part1(replacements: list[list[str]], molecule: str):

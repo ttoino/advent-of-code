@@ -4,10 +4,10 @@ import more_itertools as mit
 
 
 def parse(i: str) -> tuple[list[int], list[list[tuple[int, int, int]]]]:
-    paragraphs = i.split('\n\n')
-    seeds = list(map(int, paragraphs[0].split(':')[1].split()))
+    paragraphs = i.split("\n\n")
+    seeds = list(map(int, paragraphs[0].split(":")[1].split()))
     maps = [
-        [tuple(map(int, l.split())) for l in m.strip().split('\n')[1:]]
+        [tuple(map(int, l.split())) for l in m.strip().split("\n")[1:]]
         for m in paragraphs[1:]
     ]
     return seeds, maps
@@ -45,7 +45,9 @@ def part2(inp: tuple[list[int], list[list[tuple[int, int, int]]]]) -> int:
                     seedRanges.insert(0, (sstart + nlength, slength - nlength))
                     break
                 nlength = sstart + slength - kstart
-                nextRanges.append((vstart - kstart + (sstart + slength - nlength), nlength))
+                nextRanges.append(
+                    (vstart - kstart + (sstart + slength - nlength), nlength)
+                )
                 seedRanges.insert(0, (sstart, slength - nlength))
                 break
             else:

@@ -1,7 +1,7 @@
 import itertools as it
+import re
 import sys
 from typing import cast
-import re
 
 
 # Alternative solution: solve the system of modular equations of the type

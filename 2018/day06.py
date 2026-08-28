@@ -1,6 +1,5 @@
-import sys
-
 import itertools as it
+import sys
 
 
 def part1(inp: list[tuple[int, int]]):
@@ -33,11 +32,25 @@ def part1(inp: list[tuple[int, int]]):
 
 def part2(inp: list[tuple[int, int]]):
     points = inp
-    return len([(x, y) for x, y in it.product(range(min(points)[0], max(points)[0] + 1), range(min(points, key=lambda x: x[1])[1], max(points, key=lambda x: x[1])[1] + 1)) if sum((abs(x - px) + abs(y - py) for px, py in points)) < 10000])
+    return len(
+        [
+            (x, y)
+            for x, y in it.product(
+                range(min(points)[0], max(points)[0] + 1),
+                range(
+                    min(points, key=lambda x: x[1])[1],
+                    max(points, key=lambda x: x[1])[1] + 1,
+                ),
+            )
+            if sum((abs(x - px) + abs(y - py) for px, py in points)) < 10000
+        ]
+    )
 
 
 if __name__ == "__main__":
-    inp = [tuple(map(int, i.strip().split(','))) for i in sys.stdin.readlines()]
+    inp = [
+        tuple(map(int, i.strip().split(","))) for i in sys.stdin.readlines()
+    ]
 
     print(f"Part 1: {part1(inp)}")
     print(f"Part 2: {part2(inp)}")

@@ -1,11 +1,9 @@
-import sys
-
 import itertools as it
+import sys
 from typing import Self
 
 
 class CircularList:
-
     def __init__(self):
         self.current = None
 
@@ -34,8 +32,7 @@ class CircularList:
             self.current = self.current.prev
 
     class Node:
-
-        def __init__(self, value, prev: Self=None, next: Self=None):
+        def __init__(self, value, prev: Self = None, next: Self = None):
             self.value = value
             self.prev = prev or self
             self.next = next or self

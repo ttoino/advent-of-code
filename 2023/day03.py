@@ -1,12 +1,10 @@
-import re
-import sys
-
 import functools as ft
 import operator as op
+import re
+import sys
 from collections import defaultdict
 
-
-pattern = re.compile(r'\d+')
+pattern = re.compile(r"\d+")
 
 
 def part1(inp: list[str]) -> int:
@@ -17,9 +15,13 @@ def part1(inp: list[str]) -> int:
         for match in pattern.finditer(line):
             num = int(match.group())
             part = False
-            for x in range(max(0, match.start() - 1), min(match.end() + 1, len(line))):
+            for x in range(
+                max(0, match.start() - 1), min(match.end() + 1, len(line))
+            ):
                 for yy in range(max(0, y - 1), min(y + 2, len(lines))):
-                    part = part or (not lines[yy][x].isdigit() and lines[yy][x] != '.')
+                    part = part or (
+                        not lines[yy][x].isdigit() and lines[yy][x] != "."
+                    )
             if part:
                 result += num
     return result
@@ -32,11 +34,15 @@ def part2(inp: list[str]) -> int:
         line = line.strip()
         for match in pattern.finditer(line):
             num = int(match.group())
-            for x in range(max(0, match.start() - 1), min(match.end() + 1, len(line))):
+            for x in range(
+                max(0, match.start() - 1), min(match.end() + 1, len(line))
+            ):
                 for yy in range(max(0, y - 1), min(y + 2, len(lines))):
-                    if lines[yy][x] == '*':
+                    if lines[yy][x] == "*":
                         gears[x, yy].add(num)
-    result = sum((ft.reduce(op.mul, gear) for gear in gears.values() if len(gear) == 2))
+    result = sum(
+        (ft.reduce(op.mul, gear) for gear in gears.values() if len(gear) == 2)
+    )
     return result
 
 

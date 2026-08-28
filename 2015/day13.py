@@ -22,7 +22,9 @@ def part1(graph: dict[str, dict[str, int]]):
 
     for p in it.permutations(nodes):
         p = (starting_node,) + p + (starting_node,)
-        best = max(best, sum(graph[a][b] + graph[b][a] for a, b in it.pairwise(p)))
+        best = max(
+            best, sum(graph[a][b] + graph[b][a] for a, b in it.pairwise(p))
+        )
 
     return best
 

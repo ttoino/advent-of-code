@@ -6,7 +6,12 @@ def part1(inp: list[list[str]]) -> int:
 
 
 def part2(inp: list[list[str]]) -> int:
-    return sum((len(set(a)) == len(a) for a in ([''.join(sorted(x)) for x in line] for line in inp)))
+    return sum(
+        (
+            len(set(a)) == len(a)
+            for a in (["".join(sorted(x)) for x in line] for line in inp)
+        )
+    )
 
 
 if __name__ == "__main__":

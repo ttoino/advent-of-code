@@ -1,17 +1,17 @@
 import functools as ft
-import more_itertools as mit
 import operator as op
-import sys
+
+import more_itertools as mit
 
 
 def part1(inp: str) -> int:
     l = list(range(256))
     skip_size = 0
     index = 0
-    for i in inp.split(','):
+    for i in inp.split(","):
         i = int(i)
         l[:i] = l[:i][::-1]
-        l = l[(i + skip_size) % 256:] + l[:(i + skip_size) % 256]
+        l = l[(i + skip_size) % 256 :] + l[: (i + skip_size) % 256]
         index += i + skip_size
         skip_size += 1
     index %= 256
@@ -28,12 +28,12 @@ def part2(inp: str) -> str:
         for i in lengths:
             i = int(i)
             l[:i] = l[:i][::-1]
-            l = l[(i + skip_size) % 256:] + l[:(i + skip_size) % 256]
+            l = l[(i + skip_size) % 256 :] + l[: (i + skip_size) % 256]
             index += i + skip_size
             skip_size += 1
     index %= 256
     l = l[-index:] + l[:-index]
-    return ''.join((f'{ft.reduce(op.xor, c):02x}' for c in mit.chunked(l, 16)))
+    return "".join((f"{ft.reduce(op.xor, c):02x}" for c in mit.chunked(l, 16)))
 
 
 if __name__ == "__main__":

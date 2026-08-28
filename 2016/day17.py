@@ -1,5 +1,5 @@
-from hashlib import md5
 import heapq as hq
+from hashlib import md5
 
 
 def part1(passcode: str) -> str:
@@ -8,10 +8,15 @@ def part1(passcode: str) -> str:
     while len(heap) > 0:
         d, p = hq.heappop(heap)
 
-        if p.count("D") - p.count("U") == 3 and p.count("R") - p.count("L") == 3:
+        if (
+            p.count("D") - p.count("U") == 3
+            and p.count("R") - p.count("L") == 3
+        ):
             return p
 
-        for di, c in zip("UDLR", md5(bytes(passcode + p, "ascii")).hexdigest()):
+        for di, c in zip(
+            "UDLR", md5(bytes(passcode + p, "ascii")).hexdigest()
+        ):
             if ord("b") <= ord(c) <= ord("f"):
                 hq.heappush(heap, (d + 1, p + di))
 
@@ -25,11 +30,16 @@ def part2(passcode: str) -> int:
     while len(heap) > 0:
         d, p, x, y = hq.heappop(heap)
 
-        if p.count("D") - p.count("U") == 3 and p.count("R") - p.count("L") == 3:
+        if (
+            p.count("D") - p.count("U") == 3
+            and p.count("R") - p.count("L") == 3
+        ):
             paths.add(p)
             continue
 
-        for di, c in zip("UDLR", md5(bytes(passcode + p, "ascii")).hexdigest()):
+        for di, c in zip(
+            "UDLR", md5(bytes(passcode + p, "ascii")).hexdigest()
+        ):
             nx = x + (di == "R") - (di == "L")
             ny = y + (di == "D") - (di == "U")
             if 0 < nx <= 4 and 0 < ny <= 4 and ord("b") <= ord(c) <= ord("f"):

@@ -1,7 +1,6 @@
-import sys
-
 import functools as ft
 import itertools as it
+import sys
 
 
 @ft.cache

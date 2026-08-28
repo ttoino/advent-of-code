@@ -1,5 +1,5 @@
-import sys
 import functools as ft
+import sys
 
 
 def score(amount: list[int], ingredients: list[tuple[int, int, int, int]]):

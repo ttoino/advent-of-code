@@ -24,17 +24,24 @@ def check_weight(towers, tower):
 
 
 def parse(lines: list[str]) -> dict[str, tuple[int, list[str] | None]]:
-    p = re.compile(r'(\w+) \((\d+)\)(?: -> ((?:\w+,? ?)+))?')
+    p = re.compile(r"(\w+) \((\d+)\)(?: -> ((?:\w+,? ?)+))?")
     return {
-        g[0]: (int(g[1]), g[2].split(', ') if g[2] else None)
+        g[0]: (int(g[1]), g[2].split(", ") if g[2] else None)
         for line in lines
         if (g := p.match(line).groups())
     }
 
 
 def find_root(towers: dict[str, tuple[int, list[str] | None]]) -> str:
-    names = {name for name, (_, children) in towers.items() if children is not None}
-    children = {c for _, (_, children) in towers.items() if children is not None for c in children}
+    names = {
+        name for name, (_, children) in towers.items() if children is not None
+    }
+    children = {
+        c
+        for _, (_, children) in towers.items()
+        if children is not None
+        for c in children
+    }
     return next(iter(names - children))
 
 

@@ -1,11 +1,15 @@
 import itertools as it
+import re
 import sys
 from typing import cast
-import re
 
 
 def part1(nodes: list[tuple[int, int, int, int, int, int]]) -> int:
-    pairs = [(a, b) for a, b in it.permutations(nodes, 2) if a[3] != 0 and a[3] <= b[4]]
+    pairs = [
+        (a, b)
+        for a, b in it.permutations(nodes, 2)
+        if a[3] != 0 and a[3] <= b[4]
+    ]
     return len(pairs)
 
 
@@ -33,7 +37,10 @@ def part2(nodes: list[tuple[int, int, int, int, int, int]]) -> int:
 if __name__ == "__main__":
     p = re.compile(r"-[xy]|[T%]?\s+")
     inp = [
-        cast("tuple[int, int, int, int, int, int]", tuple(map(int, p.split(i)[1:-1])))
+        cast(
+            "tuple[int, int, int, int, int, int]",
+            tuple(map(int, p.split(i)[1:-1])),
+        )
         for i in sys.stdin.readlines()[2:]
     ]
 

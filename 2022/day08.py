@@ -1,7 +1,6 @@
 import sys
 
 
-
 def score(trees: list[list[int]], col: int, row: int, width: int, height: int):
     val = trees[row][col]
     up = 0

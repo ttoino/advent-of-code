@@ -1,7 +1,6 @@
-import sys
-
 import functools as ft
 import operator as op
+import sys
 
 
 def parse(inp: str) -> list[tuple[list[str], list[str]]]:

@@ -1,11 +1,10 @@
 import sys
-
 from collections import defaultdict
 
 
 def parse(i: str) -> tuple[set[int], set[int]]:
-    line = i.split(':')[1].strip()
-    mine, winning = line.split('|')
+    line = i.split(":")[1].strip()
+    mine, winning = line.split("|")
     return set(map(int, mine.split())), set(map(int, winning.split()))
 
 

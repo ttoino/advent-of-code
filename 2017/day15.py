@@ -1,6 +1,3 @@
-import sys
-
-
 def part1(inp: tuple[int, int]) -> int:
     a, b = inp
     s = 0
@@ -17,7 +14,7 @@ def part2(inp: tuple[int, int]) -> int:
     a, b = inp
     s = 0
     for i in range(5000000):
-        print(f'{i}/5000000', end='\r')
+        print(f"{i}/5000000", end="\r")
         while True:
             a *= 16807
             a %= 2147483647

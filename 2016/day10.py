@@ -64,7 +64,20 @@ def solve(inp: list[list[str]]) -> tuple[int, int]:
             case ["value", x, "goes", "to", "bot", y]:
                 robots.setdefault(y, Robot(y))
                 robots[y].give_value(int(x))
-            case ["bot", x, "gives", "low", "to", obl, y, "and", "high", "to", obh, z]:
+            case [
+                "bot",
+                x,
+                "gives",
+                "low",
+                "to",
+                obl,
+                y,
+                "and",
+                "high",
+                "to",
+                obh,
+                z,
+            ]:
                 robots.setdefault(x, Robot(x))
                 robots[x].set_low(("" if obl == "bot" else "o") + y)
                 robots[x].set_high(("" if obh == "bot" else "o") + z)

@@ -1,7 +1,7 @@
-import itertools as it
-import sys
 import functools as ft
+import itertools as it
 import operator as op
+import sys
 
 
 def get_group(weights, remaining, groups, target):
@@ -13,7 +13,9 @@ def get_group(weights, remaining, groups, target):
             if remaining == 2:
                 return True
             if remaining < groups:
-                return get_group(weights - set(c), remaining - 1, groups, target)
+                return get_group(
+                    weights - set(c), remaining - 1, groups, target
+                )
 
             return ft.reduce(op.mul, c)
 

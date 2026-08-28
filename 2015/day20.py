@@ -5,7 +5,9 @@ def solve(t: int, part: int):
         for j in range(i, t + 1 if part == 1 else min(t + 1, i * 50 + 1), i):
             houses[j] += i if part == 1 else i * 11
 
-    return next(i for i, x in enumerate(houses) if x >= (t if part == 1 else t * 10))
+    return next(
+        i for i, x in enumerate(houses) if x >= (t if part == 1 else t * 10)
+    )
 
 
 if __name__ == "__main__":

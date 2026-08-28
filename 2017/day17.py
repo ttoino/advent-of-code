@@ -1,6 +1,3 @@
-import sys
-
-
 def part1(inp: int) -> int:
     buffer = [0]
     p = 0

@@ -1,17 +1,21 @@
-import sys
-
 import functools as ft
 import operator as op
+import sys
 from collections import deque
-
-
 
 monkeys = []
 divisor = 0
 
 
 class Monkey:
-    __slots__ = ('items', 'operation', 'test', 'true_monkey', 'false_monkey', 'inspections')
+    __slots__ = (
+        "items",
+        "operation",
+        "test",
+        "true_monkey",
+        "false_monkey",
+        "inspections",
+    )
 
     def __init__(self, i: deque[int], op: str, d: int, t: int, f: int):
         self.items = i
@@ -34,7 +38,14 @@ class Monkey:
 
 
 class Monkey_p2:
-    __slots__ = ('items', 'operation', 'test', 'true_monkey', 'false_monkey', 'inspections')
+    __slots__ = (
+        "items",
+        "operation",
+        "test",
+        "true_monkey",
+        "false_monkey",
+        "inspections",
+    )
 
     def __init__(self, i: deque[int], op: str, d: int, t: int, f: int):
         self.items = i
@@ -58,11 +69,11 @@ class Monkey_p2:
 
 def parse(s: str) -> list[tuple[list[int], str, int, int, int]]:
     res = []
-    for block in s.strip().split('\n\n'):
+    for block in s.strip().split("\n\n"):
         lines = block.splitlines()
-        i = [int(i) for i in lines[1].split(': ')[1].split(', ')]
-        op = lines[2].split('= ')[1]
-        d = int(lines[3].split('by ')[1])
+        i = [int(i) for i in lines[1].split(": ")[1].split(", ")]
+        op = lines[2].split("= ")[1]
+        d = int(lines[3].split("by ")[1])
         t = int(lines[4][-1])
         f = int(lines[5][-1])
         res.append((i, op, d, t, f))

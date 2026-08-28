@@ -1,9 +1,11 @@
-from collections import Counter
 import sys
+from collections import Counter
 
 
 def solve(inp: list[str], part2: bool) -> str:
-    return "".join(Counter(a).most_common()[-1 if part2 else 0][0] for a in zip(*inp))
+    return "".join(
+        Counter(a).most_common()[-1 if part2 else 0][0] for a in zip(*inp)
+    )
 
 
 if __name__ == "__main__":

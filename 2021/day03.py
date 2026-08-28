@@ -1,6 +1,5 @@
-import sys
-
 import functools as ft
+import sys
 from collections import Counter
 
 

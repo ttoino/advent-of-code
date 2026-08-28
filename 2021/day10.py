@@ -1,14 +1,12 @@
 import sys
-
 from collections import Counter, deque
 
+closing_brackets = {")": 3, "]": 57, "}": 1197, ">": 25137}
+opening_brackets = ("(", "[", "{", "<")
+bracket_map = {")": "(", "]": "[", "}": "{", ">": "<"}
 
-closing_brackets = {')': 3, ']': 57, '}': 1197, '>': 25137}
-opening_brackets = ('(', '[', '{', '<')
-bracket_map = {')': '(', ']': '[', '}': '{', '>': '<'}
-
-closing_brackets_p2 = (')', ']', '}', '>')
-opening_brackets_p2 = {'(': 1, '[': 2, '{': 3, '<': 4}
+closing_brackets_p2 = (")", "]", "}", ">")
+opening_brackets_p2 = {"(": 1, "[": 2, "{": 3, "<": 4}
 
 
 def error_score(line: str) -> int:

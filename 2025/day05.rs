@@ -33,8 +33,11 @@ fn normalize_ranges(mut ranges: Ranges) -> Ranges {
     let mut result: Vec<RangeInclusive<usize>> = vec![];
 
     for range in ranges {
-        if let Some(last_range) = result.last_mut() && last_range.end() >= range.start() {
-            *last_range = *last_range.start().min(range.start())..=*last_range.end().max(range.end());
+        if let Some(last_range) = result.last_mut()
+            && last_range.end() >= range.start()
+        {
+            *last_range =
+                *last_range.start().min(range.start())..=*last_range.end().max(range.end());
         } else {
             result.push(range);
         }
@@ -50,7 +53,10 @@ fn part1(ranges: &Ranges, ids: &IDs) -> usize {
 }
 
 fn part2(ranges: &Ranges) -> usize {
-    ranges.iter().map(|range| range.end() - range.start() + 1).sum()
+    ranges
+        .iter()
+        .map(|range| range.end() - range.start() + 1)
+        .sum()
 }
 
 pub fn main() {

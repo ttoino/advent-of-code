@@ -1,5 +1,5 @@
-from copy import deepcopy
 import sys
+from copy import deepcopy
 
 
 def solve(instructions: list[list[str]], part2: bool) -> int:

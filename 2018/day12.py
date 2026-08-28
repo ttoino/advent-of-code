@@ -2,14 +2,17 @@ import sys
 
 import more_itertools as mit
 
-
 ITERS = 50_000_000_000
 
 
-def parse(inp: list[str]) -> tuple[tuple[bool, ...], dict[tuple[bool, ...], bool]]:
-    pots = tuple((c == '#' for c in inp[0].strip().split()[-1]))
+def parse(
+    inp: list[str],
+) -> tuple[tuple[bool, ...], dict[tuple[bool, ...], bool]]:
+    pots = tuple((c == "#" for c in inp[0].strip().split()[-1]))
     patterns = {
-        tuple((c == '#' for c in line.strip().split(' => ')[0])): line.strip().split(' => ')[1] == '#'
+        tuple(
+            (c == "#" for c in line.strip().split(" => ")[0])
+        ): line.strip().split(" => ")[1] == "#"
         for line in inp[2:]
     }
     return pots, patterns
@@ -21,7 +24,12 @@ def part1(inp: tuple[tuple[bool, ...], dict[tuple[bool, ...], bool]]):
     for _ in range(20):
         pots = (False, False, False, False, *pots, False, False, False, False)
         offset -= 2
-        pots = tuple((patterns[window] for window in mit.windowed(pots, 5, fillvalue=False)))
+        pots = tuple(
+            (
+                patterns[window]
+                for window in mit.windowed(pots, 5, fillvalue=False)
+            )
+        )
         while not pots[0]:
             pots = pots[1:]
             offset += 1
@@ -34,10 +42,29 @@ def part2(inp: tuple[tuple[bool, ...], dict[tuple[bool, ...], bool]]):
     pots, patterns = inp
     offset = 0
     for i in range(ITERS):
-        print(i, end='\r')
+        print(i, end="\r")
         oldpots = pots
         oldoffset = offset
-        pots = tuple((patterns[window] for window in mit.windowed((False, False, False, False, *pots, False, False, False, False), 5, fillvalue=False)))
+        pots = tuple(
+            (
+                patterns[window]
+                for window in mit.windowed(
+                    (
+                        False,
+                        False,
+                        False,
+                        False,
+                        *pots,
+                        False,
+                        False,
+                        False,
+                        False,
+                    ),
+                    5,
+                    fillvalue=False,
+                )
+            )
+        )
         offset -= 2
         while not pots[0]:
             pots = pots[1:]

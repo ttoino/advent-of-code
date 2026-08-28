@@ -3,7 +3,6 @@ import sys
 import more_itertools as mit
 
 
-
 def visit(node: dict[str, dict | int] | int, small_dirs: list[int]):
     if isinstance(node, dict):
         s = sum(visit(v, small_dirs) for v in node.values())
@@ -22,24 +21,24 @@ def visit_p2(node: dict[str, dict | int] | int, dir_sizes: list[int]):
 
 
 def parse(s: str) -> dict:
-    cmds = s.split('$ ')[1:]
+    cmds = s.split("$ ")[1:]
     tree = {}
     curr = {}
     stack = []
     for cmd in cmds:
         cmd, *rest = cmd.split()
-        if cmd == 'cd':
+        if cmd == "cd":
             arg = rest[0]
-            if arg == '/':
+            if arg == "/":
                 curr = tree
-            elif arg == '..':
+            elif arg == "..":
                 curr = stack.pop()
             else:
                 stack.append(curr)
                 curr = curr[arg]
-        if cmd == 'ls':
+        if cmd == "ls":
             for size, name in mit.chunked(rest, 2):
-                if size == 'dir':
+                if size == "dir":
                     curr[name] = {}
                 else:
                     curr[name] = int(size)

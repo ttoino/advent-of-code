@@ -1,6 +1,7 @@
-import sys
-import more_itertools as mit
 import operator as op
+import sys
+
+import more_itertools as mit
 
 
 def solve(sues: dict[int, dict[str, int]], part: int):

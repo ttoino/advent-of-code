@@ -27,7 +27,7 @@ def part1(inp: list[list[str]]) -> int:
                     result += len(left)
                     break
             else:
-                print('no match')
+                print("no match")
     return result
 
 
@@ -49,12 +49,12 @@ def part2(inp: list[list[str]]) -> int:
                     result += len(left)
                     break
             else:
-                print('no match')
+                print("no match")
     return result
 
 
 if __name__ == "__main__":
-    inp = [parse(p) for p in sys.stdin.read().strip().split('\n\n')]
+    inp = [parse(p) for p in sys.stdin.read().strip().split("\n\n")]
 
     print(f"Part 1: {part1(inp)}")
     print(f"Part 2: {part2(inp)}")

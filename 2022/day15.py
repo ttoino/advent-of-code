@@ -1,10 +1,10 @@
 import re
 import sys
 
-
-
 SIZE = 4000000
-PATTERN = re.compile(r'Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)')
+PATTERN = re.compile(
+    r"Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)"
+)
 
 
 def dist(x, y, bx, by):
@@ -12,7 +12,10 @@ def dist(x, y, bx, by):
 
 
 def parse(s: str) -> list[tuple[int, int, int, int]]:
-    return [tuple(map(int, PATTERN.match(line).groups())) for line in s.splitlines()]
+    return [
+        tuple(map(int, PATTERN.match(line).groups()))
+        for line in s.splitlines()
+    ]
 
 
 def part1(inp: list[tuple[int, int, int, int]]):

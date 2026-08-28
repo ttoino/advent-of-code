@@ -1,7 +1,5 @@
-import sys
-
 import re
-
+import sys
 
 FONT = {
     "●●●●\n●\n●●●\n●\n●\n●●●●": "E",
@@ -17,7 +15,9 @@ FONT = {
 def ocr(paper: str) -> str:
     lines = [line.rstrip() for line in paper.splitlines()]
     width = max(len(l) for l in lines)
-    empty_cols = [all(len(l) <= c or l[c] == " " for l in lines) for c in range(width)]
+    empty_cols = [
+        all(len(l) <= c or l[c] == " " for l in lines) for c in range(width)
+    ]
 
     letters = []
     start = 0

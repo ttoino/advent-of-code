@@ -1,11 +1,10 @@
-import sys
-
 import functools as ft
 import operator as op
+import sys
 
 
 def parse_packet(packet, count=-1):
-    if packet == '' or int(packet, 2) == 0:
+    if packet == "" or int(packet, 2) == 0:
         return 0
     if count == 0:
         return parse_packet(packet, count - 1)
@@ -14,21 +13,25 @@ def parse_packet(packet, count=-1):
     if t == 4:
         i = 6
         done = False
-        number = ''
+        number = ""
         while not done:
-            if packet[i] == '0':
+            if packet[i] == "0":
                 done = True
-            number += packet[i + 1:i + 5]
+            number += packet[i + 1 : i + 5]
             i += 5
         number = int(number, 2)
         return v + parse_packet(packet[i:], count - 1)
     i = packet[6]
-    if i == '1':
+    if i == "1":
         l = int(packet[7:18], 2)
         return v + parse_packet(packet[18:], l)
     else:
         l = int(packet[7:22], 2)
-        return v + parse_packet(packet[22:22 + l], -1) + parse_packet(packet[22 + l:], count - 1)
+        return (
+            v
+            + parse_packet(packet[22 : 22 + l], -1)
+            + parse_packet(packet[22 + l :], count - 1)
+        )
 
 
 def operate(t, values):
@@ -52,26 +55,26 @@ def operate(t, values):
 def parse_packet_p2(packet, start, end=-1) -> tuple[int | None, int | None]:
     if start == end:
         return (None, None)
-    if packet[start:end] == '' or int(packet[start:end], 2) == 0:
+    if packet[start:end] == "" or int(packet[start:end], 2) == 0:
         return (None, None)
-    v = int(packet[start:start + 3], 2)
-    t = int(packet[start + 3:start + 6], 2)
+    v = int(packet[start : start + 3], 2)
+    t = int(packet[start + 3 : start + 6], 2)
     if t == 4:
         start += 6
         done = False
-        number = ''
+        number = ""
         while not done:
-            if packet[start] == '0':
+            if packet[start] == "0":
                 done = True
-            number += packet[start + 1:start + 5]
+            number += packet[start + 1 : start + 5]
             start += 5
         number = int(number, 2)
         return (number, start)
     values = []
     next_start = None
     i = packet[start + 6]
-    if i == '1':
-        l = int(packet[start + 7:start + 18], 2)
+    if i == "1":
+        l = int(packet[start + 7 : start + 18], 2)
         index = start + 18
         while l > 0:
             x, index = parse_packet_p2(packet, index)
@@ -79,7 +82,7 @@ def parse_packet_p2(packet, start, end=-1) -> tuple[int | None, int | None]:
             values.append(x)
         next_start = index
     else:
-        l = int(packet[start + 7:start + 22], 2)
+        l = int(packet[start + 7 : start + 22], 2)
         end = start + 22 + l
         index = start + 22
         prev_index = None
@@ -93,7 +96,7 @@ def parse_packet_p2(packet, start, end=-1) -> tuple[int | None, int | None]:
 
 
 def parse(inp: str) -> str:
-    return ''.join(f'{int(x, 16):04b}' for x in inp.strip())
+    return "".join(f"{int(x, 16):04b}" for x in inp.strip())
 
 
 def part1(inp: str) -> int:

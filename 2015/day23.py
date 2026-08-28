@@ -1,5 +1,5 @@
-import sys
 import re
+import sys
 
 
 def solve(instructions: list[list[str]], part: int):

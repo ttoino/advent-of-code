@@ -1,12 +1,11 @@
-import sys
-
 import itertools as it
 import re
+import sys
 from collections import Counter
 
 
 def parse(i: str) -> tuple[int, int, int, int, int]:
-    pattern = re.compile('#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)')
+    pattern = re.compile("#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)")
     m = pattern.match(i)
     return int(m[1]), int(m[2]), int(m[3]), int(m[4]), int(m[5])
 

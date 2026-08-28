@@ -1,5 +1,4 @@
 import itertools as it
-import sys
 
 
 def part1(inp: tuple[int, ...]) -> int:

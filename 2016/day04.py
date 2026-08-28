@@ -1,5 +1,5 @@
-import sys
 import re
+import sys
 from string import ascii_lowercase
 
 
@@ -8,7 +8,10 @@ def part1(inp: list[tuple[str, int, str]]) -> int:
 
     for name, id, expected in inp:
         actual = "".join(
-            sorted({c for c in name if c != "-"}, key=lambda x: (-name.count(x), x))[:5]
+            sorted(
+                {c for c in name if c != "-"},
+                key=lambda x: (-name.count(x), x),
+            )[:5]
         )
         if actual == expected:
             s += id
@@ -19,7 +22,9 @@ def part1(inp: list[tuple[str, int, str]]) -> int:
 def part2(inp: list[tuple[str, int, str]]) -> int:
     for name, id, _ in inp:
         name = "".join(
-            " " if c == "-" else ascii_lowercase[(ascii_lowercase.index(c) + id) % 26]
+            " "
+            if c == "-"
+            else ascii_lowercase[(ascii_lowercase.index(c) + id) % 26]
             for c in name[:-1]
         )
 
@@ -33,7 +38,9 @@ if __name__ == "__main__":
     pattern = re.compile(r"((?:\w+-)+)(\d+)\[(\w{5})\]")
     inp = [
         (a, int(b), c)
-        for a, b, c in (pattern.match(i).groups() for i in sys.stdin.readlines())
+        for a, b, c in (
+            pattern.match(i).groups() for i in sys.stdin.readlines()
+        )
     ]
 
     print(f"Part 1: {part1(inp)}")

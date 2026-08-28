@@ -1,14 +1,16 @@
+import re
 import sys
 from time import sleep
+
 import more_itertools as mit
-import re
 
 
 def print_code(code):
     print(
         "\x1b[H\x1b[J"
         + "\n".join(
-            "".join("#" if c else " " for c in line) for line in mit.chunked(code, 50)
+            "".join("#" if c else " " for c in line)
+            for line in mit.chunked(code, 50)
         )
     )
     sleep(0.1)

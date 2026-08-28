@@ -4,12 +4,14 @@ import { stdin } from "node:process";
 type Input = {
     towels: string[];
     designs: string[];
-}
+};
 
 const getInput = async (): Promise<Input> => {
-    const int: AsyncIterator<string> = createInterface({ input: stdin })[Symbol.asyncIterator]();
+    const int: AsyncIterator<string> = createInterface({ input: stdin })[
+        Symbol.asyncIterator
+    ]();
 
-    const towels = (await int.next()).value.split(', ');
+    const towels = (await int.next()).value.split(", ");
 
     await int.next();
 
@@ -44,7 +46,7 @@ const waysToMakeDesign = (towels: string[]) => {
     };
 
     return fn;
-}
+};
 
 {
     const input = await getInput();

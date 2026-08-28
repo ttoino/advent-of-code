@@ -34,7 +34,10 @@ def part2(inp: list[list[int]]) -> int:
 
 
 if __name__ == "__main__":
-    inp = [[int(n) for n in line.split(' <-> ')[1].split(', ')] for line in sys.stdin.read().splitlines()]
+    inp = [
+        [int(n) for n in line.split(" <-> ")[1].split(", ")]
+        for line in sys.stdin.read().splitlines()
+    ]
 
     print(f"Part 1: {part1(inp)}")
     print(f"Part 2: {part2(inp)}")

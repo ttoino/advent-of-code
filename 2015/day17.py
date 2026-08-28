@@ -8,9 +8,9 @@ def brute_force(capacities, ub, amount=0) -> list[int]:
     if ub < 0 or len(capacities) == 0:
         return []
 
-    return brute_force(capacities[1:], ub - capacities[0], amount + 1) + brute_force(
-        capacities[1:], ub, amount
-    )
+    return brute_force(
+        capacities[1:], ub - capacities[0], amount + 1
+    ) + brute_force(capacities[1:], ub, amount)
 
 
 if __name__ == "__main__":

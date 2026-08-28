@@ -57,7 +57,16 @@ def shield(
 ):
     if shield > 0:
         return 0, 0, 0, 0, 0, 0, 0, 0
-    return spent_mana + 113, boss_hp, boss_damage, hp, mana - 113, 6, poison, recharge
+    return (
+        spent_mana + 113,
+        boss_hp,
+        boss_damage,
+        hp,
+        mana - 113,
+        6,
+        poison,
+        recharge,
+    )
 
 
 def poison(
@@ -72,7 +81,16 @@ def poison(
 ):
     if poison > 0:
         return 0, 0, 0, 0, 0, 0, 0, 0
-    return spent_mana + 173, boss_hp, boss_damage, hp, mana - 173, shield, 6, recharge
+    return (
+        spent_mana + 173,
+        boss_hp,
+        boss_damage,
+        hp,
+        mana - 173,
+        shield,
+        6,
+        recharge,
+    )
 
 
 def recharge(
@@ -87,7 +105,16 @@ def recharge(
 ):
     if recharge > 0:
         return 0, 0, 0, 0, 0, 0, 0, 0
-    return spent_mana + 229, boss_hp, boss_damage, hp, mana - 229, shield, poison, 5
+    return (
+        spent_mana + 229,
+        boss_hp,
+        boss_damage,
+        hp,
+        mana - 229,
+        shield,
+        poison,
+        5,
+    )
 
 
 spells = [magic_missile, drain, shield, poison, recharge]
@@ -150,7 +177,9 @@ def simulate(
 
 def solve(boss_hp: int, boss_damage: int, hp: int, mana: int, part: int):
     return min(
-        simulate(*spell(0, boss_hp, boss_damage, hp - part + 1, mana, 0, 0, 0), part)
+        simulate(
+            *spell(0, boss_hp, boss_damage, hp - part + 1, mana, 0, 0, 0), part
+        )
         for spell in spells
     )
 

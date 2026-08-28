@@ -1,7 +1,6 @@
 import sys
 
 
-
 def part1(inp: int):
     n = inp
     scores = [3, 7]
@@ -14,7 +13,7 @@ def part1(inp: int):
         pos1 %= len(scores)
         pos2 += 1 + scores[pos2]
         pos2 %= len(scores)
-    return ''.join(map(str, scores[n:]))
+    return "".join(map(str, scores[n:]))
 
 
 def part2(inp: list[int]):
@@ -25,11 +24,11 @@ def part2(inp: list[int]):
     while True:
         new_score = map(int, str(scores[pos1] + scores[pos2]))
         scores.append(next(new_score))
-        if scores[-len(n):] == n:
+        if scores[-len(n) :] == n:
             break
         if (x := next(new_score, None)) is not None:
             scores.append(x)
-            if scores[-len(n):] == n:
+            if scores[-len(n) :] == n:
                 break
         pos1 += 1 + scores[pos1]
         pos1 %= len(scores)

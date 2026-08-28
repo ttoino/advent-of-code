@@ -10,7 +10,7 @@ import (
 )
 
 type Equation struct {
-	result int
+	result   int
 	operands []int
 }
 
@@ -23,7 +23,7 @@ func GetInput() []Equation {
 		if err != nil {
 			break
 		}
-		
+
 		split := strings.Split(strings.TrimSpace(line), ": ")
 		result, err := strconv.Atoi(split[0])
 
@@ -33,7 +33,7 @@ func GetInput() []Equation {
 		}
 
 		equation := Equation{
-			result: result,
+			result:   result,
 			operands: []int{},
 		}
 
@@ -59,9 +59,9 @@ func solveEquation(concat bool, result, current int, operands []int) bool {
 		return result == current
 	}
 
-	return solveEquation(concat, result, current + operands[0], operands[1:]) || 
-		solveEquation(concat, result, current * operands[0], operands[1:]) ||
-		(concat && solveEquation(concat, result, current * int(math.Pow10(int(math.Log10(float64(operands[0])) + 1))) + operands[0], operands[1:]))
+	return solveEquation(concat, result, current+operands[0], operands[1:]) ||
+		solveEquation(concat, result, current*operands[0], operands[1:]) ||
+		(concat && solveEquation(concat, result, current*int(math.Pow10(int(math.Log10(float64(operands[0]))+1)))+operands[0], operands[1:]))
 }
 
 func Solve(input []Equation, part2 bool) int {

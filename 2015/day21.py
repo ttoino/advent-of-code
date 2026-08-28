@@ -1,7 +1,7 @@
-import itertools as it
-from math import ceil
 import functools as ft
+import itertools as it
 import sys
+from math import ceil
 
 weapons = [(8, 4, 0), (10, 5, 0), (25, 6, 0), (40, 7, 0), (74, 8, 0)]
 

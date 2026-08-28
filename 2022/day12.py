@@ -1,9 +1,6 @@
-import sys
-
 import functools as ft
 import heapq as h
-
-
+import sys
 
 DIRS = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
@@ -50,12 +47,12 @@ def part1(inp: list[list[str]]):
     height = len(grid)
     for y, l in enumerate(grid):
         for x, i in enumerate(l):
-            if i == 'S':
+            if i == "S":
                 start = (x, y)
-                grid[y][x] = 'a'
-            elif i == 'E':
+                grid[y][x] = "a"
+            elif i == "E":
                 end = (x, y)
-                grid[y][x] = 'z'
+                grid[y][x] = "z"
     heap = [(0, *start)]
     visited = set()
     while len(heap):
@@ -85,12 +82,12 @@ def part2(inp: list[list[str]]):
     height = len(grid)
     for y, l in enumerate(grid):
         for x, i in enumerate(l):
-            if i == 'S' or i == 'a':
+            if i == "S" or i == "a":
                 start.append((x, y))
-                grid[y][x] = 'a'
-            elif i == 'E':
+                grid[y][x] = "a"
+            elif i == "E":
                 end = (x, y)
-                grid[y][x] = 'z'
+                grid[y][x] = "z"
     return min((dijkstra(p, end) for p in start))
 
 

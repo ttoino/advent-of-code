@@ -1,5 +1,5 @@
-import sys
 import itertools as it
+import sys
 from collections import deque
 
 
@@ -7,7 +7,11 @@ def solve(inp: list[str]) -> tuple[int, int]:
     width = len(inp[0])
     maze = "".join(inp)
 
-    points = {c: (i % width, i // width, {}) for i, c in enumerate(maze) if c.isdigit()}
+    points = {
+        c: (i % width, i // width, {})
+        for i, c in enumerate(maze)
+        if c.isdigit()
+    }
 
     for c, (x, y, dists) in points.items():
         q = deque([(0, (x, y))])
